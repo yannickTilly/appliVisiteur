@@ -1,7 +1,6 @@
 package LPY.appliVisiteur.Service;
 
 import LPY.appliVisiteur.Model.Entity.User;
-import LPY.appliVisiteur.Model.Repository.RapportVisiteRepository;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -11,17 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Service
 public class Authentificator {
 
     @Autowired
-    HttpServletRequest request;
+    private HttpServletRequest request;
 
     @Autowired
     private UserRepository userRepository;
 
-    public User getUser()
+    public Optional<User> getUser()
     {
         String token = request.getHeader("authorization");
         Algorithm algorithm = Algorithm.HMAC256("secret");
@@ -29,7 +29,7 @@ public class Authentificator {
                 .withIssuer("auth0")
                 .build(); //Reusable verifier instance
         DecodedJWT jwt = verifier.verify(token);
-        User user = userRepository.findById(0);
+        Optional<User> user = userRepository.findById(jwt.getClaim("id").asInt());
         return user;
     }
 }

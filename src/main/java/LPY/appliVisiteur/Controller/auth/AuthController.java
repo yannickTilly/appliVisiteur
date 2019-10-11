@@ -24,11 +24,9 @@ public class AuthController {
         if(user != null)
         {
             Algorithm algorithm = Algorithm.HMAC256("secret");
-            Map<String, Object> headerClaims = new HashMap();
-            headerClaims.put("id", user.getId());
             String token = JWT.create()
                     .withIssuer("auth0")
-                    .withHeader(headerClaims)
+                    .withClaim("id", user.getId())
                     .sign(algorithm);
             return token;
         }
