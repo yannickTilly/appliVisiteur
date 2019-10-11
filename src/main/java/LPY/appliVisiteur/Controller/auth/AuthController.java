@@ -1,11 +1,10 @@
 package LPY.appliVisiteur.Controller.auth;
 
+import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import LPY.appliVisiteur.Model.RequestBody.Credential;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,15 +19,20 @@ public class AuthController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
-    public String getVisiteur(@RequestBody Credential credential)
-    {
+    public String getVisiteur(@RequestBody Credential credential) {
+        User user = userRepository.findByLogin(credential.getLogin());
+        if(user != null)
+        {
             Algorithm algorithm = Algorithm.HMAC256("secret");
             Map<String, Object> headerClaims = new HashMap();
-            headerClaims.put("owner", "auth0");
+            headerClaims.put("id", user.getId());
             String token = JWT.create()
                     .withIssuer("auth0")
                     .withHeader(headerClaims)
                     .sign(algorithm);
             return token;
+        }
+
+        return "mauvais login";
     }
 }

@@ -11,11 +11,22 @@ public class User {
 
     private String nom;
 
+    private String login;
+
     @OneToMany(mappedBy="user")
     private Collection<RapportVisite> rapportVisites ;
 
     @OneToMany(mappedBy = "user")
     private Collection<PeriodeTravaillee> periodeTravaillees;
+
+    public String getLogin() {
+        return login;
+    }
+
+    public User setLogin(String login) {
+        this.login = login;
+        return this;
+    }
 
     public Integer getId() {
         return id;
