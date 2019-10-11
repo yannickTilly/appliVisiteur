@@ -17,7 +17,7 @@ public class DiplomeController extends BaseController {
     private DiplomeRepository diplomeRepository;
 
     @RequestMapping(value = "diplome/{id}", method = RequestMethod.GET)
-    public Optional<Diplome> getDepartement(@PathVariable("id") Long id)
+    public Optional<Diplome> getDiplome(@PathVariable("id") Long id)
     {
         return diplomeRepository.findById(id);
     }
