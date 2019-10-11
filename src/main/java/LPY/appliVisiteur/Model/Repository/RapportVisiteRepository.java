@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface RapportVisiteRepository extends CrudRepository<RapportVisite, Integer> {
-    Optional<RapportVisite> findById(Integer id);
+    Optional<RapportVisite> findById(Long id);
 }

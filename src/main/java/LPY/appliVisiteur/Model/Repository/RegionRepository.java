@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface RegionRepository extends CrudRepository<Region, Integer> {
-    Optional<Region> findById(Integer id);
+    Optional<Region> findById(Long id);
 }
