@@ -1,8 +1,10 @@
 package LPY.appliVisiteur.Model.Repository;
 
 import LPY.appliVisiteur.Model.Entity.Region;
-import LPY.appliVisiteur.Model.Entity.User;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface RegionRepository extends CrudRepository<Region, Integer> {
+    Optional<Region> findById(Integer id);
 }
