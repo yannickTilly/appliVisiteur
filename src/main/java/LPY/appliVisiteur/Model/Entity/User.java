@@ -1,5 +1,8 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.UserView;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,16 +10,20 @@ import java.util.Collection;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    @JsonView(UserView.user.class)
+    private long id;
 
+    @JsonView(UserView.user.class)
     private String nom;
 
+    @JsonView(UserView.user.class)
     private String login;
 
     @OneToMany(mappedBy="user")
     private Collection<RapportVisite> rapportVisites ;
 
     @OneToMany(mappedBy = "user")
+    @JsonView(UserView.user.class)
     private Collection<PeriodeTravaillee> periodeTravaillees;
 
     public String getLogin() {
@@ -28,11 +35,11 @@ public class User {
         return this;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public User setId(Integer id) {
+    public User setId(long id) {
         this.id = id;
         return this;
     }

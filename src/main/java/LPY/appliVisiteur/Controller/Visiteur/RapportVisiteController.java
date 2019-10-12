@@ -2,13 +2,18 @@ package LPY.appliVisiteur.Controller.Visiteur;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.RapportVisite;
+import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.RapportVisiteRepository;
+import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
@@ -23,8 +28,9 @@ public class RapportVisiteController extends BaseController {
     }
 
     @RequestMapping(value = "rapportVisites", method = RequestMethod.GET)
-    public Iterable<RapportVisite> getRapportVisites()
-    {
-        return rapportVisiteRepository.findAll();
+    public String getRapportVisites() throws UserNotFoundException, JsonProcessingException {
+        User user = this.getUser();
+        Collection<RapportVisite> rapportVisites = rapportVisiteRepository.findByUser(user);
+        return this.createResponse(rapportVisites, RapportVisiteView.rapportVisite.class);
     }
 }

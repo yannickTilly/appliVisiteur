@@ -1,6 +1,7 @@
 package LPY.appliVisiteur.Service;
 
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -21,15 +22,24 @@ public class Authentificator {
     @Autowired
     private UserRepository userRepository;
 
-    public Optional<User> getUser()
-    {
+    public User getUser() throws UserNotFoundException {
         String token = request.getHeader("authorization");
+        if (token == null)
+        {
+            throw  new UserNotFoundException("invalid token");
+        }
         Algorithm algorithm = Algorithm.HMAC256("secret");
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer("auth0")
                 .build(); //Reusable verifier instance
         DecodedJWT jwt = verifier.verify(token);
-        Optional<User> user = userRepository.findById(jwt.getClaim("id").asInt());
-        return user;
+        Optional<User> user = userRepository.findById(jwt.getClaim("id").asLong());
+        if (user.isPresent()) {
+            return user.get();
+        }
+        else
+        {
+            throw new UserNotFoundException("invalid token");
+        }
     }
 }

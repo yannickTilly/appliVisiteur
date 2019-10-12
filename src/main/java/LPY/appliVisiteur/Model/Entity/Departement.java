@@ -1,5 +1,9 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.PeriodeTravailleeView;
+import LPY.appliVisiteur.Model.View.Visiteur.UserView;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,6 +11,7 @@ import java.util.Collection;
 public class Departement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonView({PeriodeTravailleeView.periodeTravaille.class, UserView.user.class})
     private long id;
 
     @OneToMany(mappedBy = "departement")

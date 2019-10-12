@@ -1,5 +1,8 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -7,6 +10,7 @@ import java.util.Collection;
 public class Praticien {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @JsonView(RapportVisiteView.rapportVisite.class)
     private long id;
 
     @OneToMany
