@@ -9,17 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-
 @RestController
 public class MedicamentController extends BaseController {
     @Autowired
     private MedicamentRepository medicamentRepository;
 
     @RequestMapping(value = "medicament/{id}", method = RequestMethod.GET)
-    public Optional<Medicament> getDepartement(@PathVariable("id") Long id)
+    public Medicament getDepartement(@PathVariable("id") Long id)
     {
-        return medicamentRepository.findById(id);
+        return medicamentRepository.findOneById(id);
     }
 
     @RequestMapping(value = "medicaments", method = RequestMethod.GET)

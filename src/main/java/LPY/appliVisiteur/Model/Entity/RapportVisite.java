@@ -4,6 +4,7 @@ import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -13,16 +14,33 @@ public class RapportVisite {
     @JsonView(RapportVisiteView.rapportVisite.class)
     private long id;
 
+    @JsonView(RapportVisiteView.rapportVisite.class)
+    private String note;
+
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    private Collection<Medicament> medicaments;
+    @OneToMany(mappedBy = "rapportVisite")
+    @JsonView(RapportVisiteView.rapportVisite.class)
+    private Collection<PresentationMedicament> presentationMedicaments;
 
     @ManyToOne
     @JsonView(RapportVisiteView.rapportVisite.class)
-    private Praticien praticiens;
+    private Praticien praticien;
 
+    public String getNote() {
+        return note;
+    }
+
+    public RapportVisite setNote(String note) {
+        this.note = note;
+        return this;
+    }
+
+    public RapportVisite()
+    {
+        presentationMedicaments = new ArrayList<PresentationMedicament>();
+    }
     public long getId() {
         return id;
     }
@@ -41,21 +59,21 @@ public class RapportVisite {
         return this;
     }
 
-    public Collection<Medicament> getMedicaments() {
-        return medicaments;
+    public Collection<PresentationMedicament> getPresentationMedicaments() {
+        return presentationMedicaments;
     }
 
-    public RapportVisite setMedicaments(Collection<Medicament> medicaments) {
-        this.medicaments = medicaments;
+    public RapportVisite setPresentationMedicaments(Collection<PresentationMedicament> presentationMedicaments) {
+        this.presentationMedicaments = presentationMedicaments;
         return this;
     }
 
-    public Praticien getPraticiens() {
-        return praticiens;
+    public Praticien getPraticien() {
+        return praticien;
     }
 
-    public RapportVisite setPraticiens(Praticien praticiens) {
-        this.praticiens = praticiens;
+    public RapportVisite setPraticien(Praticien praticien) {
+        this.praticien = praticien;
         return this;
     }
 }

@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface PraticienRepository extends CrudRepository<Praticien, Integer> {
-    Optional<Praticien> findById(Long id);
+    Praticien findOneById(Long id);
 }

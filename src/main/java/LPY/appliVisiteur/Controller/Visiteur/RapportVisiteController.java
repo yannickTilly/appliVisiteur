@@ -1,25 +1,36 @@
 package LPY.appliVisiteur.Controller.Visiteur;
 
 import LPY.appliVisiteur.Controller.BaseController;
-import LPY.appliVisiteur.Model.Entity.RapportVisite;
-import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Entity.*;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
+import LPY.appliVisiteur.Model.Repository.MedicamentRepository;
+import LPY.appliVisiteur.Model.Repository.PraticienRepository;
+import LPY.appliVisiteur.Model.Repository.PresentationMedicamentRepository;
 import LPY.appliVisiteur.Model.Repository.RapportVisiteRepository;
+import LPY.appliVisiteur.Model.RequestBody.Visiteur.RapportVisiteBody;
 import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 public class RapportVisiteController extends BaseController {
     @Autowired
     private RapportVisiteRepository rapportVisiteRepository;
+
+    @Autowired
+    private MedicamentRepository medicamentRepository;
+
+    @Autowired
+    private PraticienRepository praticienRepository;
+
+    @Autowired
+    private PresentationMedicamentRepository presentationMedicamentRepository;
 
     @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.GET)
     public String getRapportVisite(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
@@ -40,5 +51,42 @@ public class RapportVisiteController extends BaseController {
         User user = this.getUser();
         Collection<RapportVisite> rapportVisites = rapportVisiteRepository.findByUser(user);
         return this.createResponse(rapportVisites, RapportVisiteView.rapportVisite.class);
+    }
+
+    @RequestMapping(value = "rapportVisite", method = RequestMethod.POST)
+    public String postRapportVisite(@RequestBody RapportVisiteBody rapportVisiteBody) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
+        User user = this.getUser();
+        RapportVisite rapportVisite = new RapportVisite();
+        Collection<PresentationMedicament> presentationMedicaments= new ArrayList<PresentationMedicament>();
+        for (Long medicamentId : rapportVisiteBody.getMedicamentId()) {
+            Medicament medicament = medicamentRepository.findOneById(medicamentId);
+            if (medicament != null)
+            {
+                PresentationMedicament presentationMedicament = new PresentationMedicament();
+                presentationMedicament.setMedicament(medicament)
+                        .setRapportVisite(rapportVisite);
+                presentationMedicaments.add(presentationMedicament);
+            }
+            else
+            {
+                throw new RessouceNotFoundExeption("medicament not found");
+            }
+        }
+        Praticien praticien = praticienRepository.findOneById(rapportVisiteBody.getPraticienId());
+        if (praticien != null)
+        {
+            rapportVisite.setPraticien(praticien);
+        }
+        else
+        {
+            throw new RessouceNotFoundExeption("praticien not found");
+        }
+
+        rapportVisite.setUser(user);
+        rapportVisite.setPresentationMedicaments(presentationMedicaments);
+        rapportVisite.setNote(rapportVisiteBody.getNote());
+        rapportVisiteRepository.save(rapportVisite);
+        presentationMedicamentRepository.saveAll(presentationMedicaments);
+        return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
     }
 }

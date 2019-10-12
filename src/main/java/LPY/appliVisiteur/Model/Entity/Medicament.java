@@ -1,16 +1,26 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
 public class Medicament {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @JsonView(RapportVisiteView.rapportVisite.class)
     private long id;
 
-    @ManyToMany
-    private Collection<RapportVisite> rapportVisites;
+    @OneToMany(mappedBy = "medicament")
+    private Collection<PresentationMedicament> presentationMedicaments;
+
+    public Medicament()
+    {
+        presentationMedicaments = new ArrayList<PresentationMedicament>();
+    }
 
     public long getId() {
         return id;
@@ -21,12 +31,12 @@ public class Medicament {
         return this;
     }
 
-    public Collection<RapportVisite> getRapportVisites() {
-        return rapportVisites;
+    public Collection<PresentationMedicament> getPresentationMedicaments() {
+        return presentationMedicaments;
     }
 
-    public Medicament setRapportVisites(Collection<RapportVisite> rapportVisites) {
-        this.rapportVisites = rapportVisites;
+    public Medicament setPresentationMedicaments(Collection<PresentationMedicament> presentationMedicaments) {
+        this.presentationMedicaments = presentationMedicaments;
         return this;
     }
 }
