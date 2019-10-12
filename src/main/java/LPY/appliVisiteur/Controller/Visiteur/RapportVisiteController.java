@@ -3,6 +3,7 @@ package LPY.appliVisiteur.Controller.Visiteur;
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.RapportVisite;
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.RapportVisiteRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 public class RapportVisiteController extends BaseController {
@@ -22,9 +22,17 @@ public class RapportVisiteController extends BaseController {
     private RapportVisiteRepository rapportVisiteRepository;
 
     @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.GET)
-    public Optional<RapportVisite> getRapportVisite(@PathVariable("id") Long id)
-    {
-        return rapportVisiteRepository.findById(id);
+    public String getRapportVisite(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+        RapportVisite rapportVisite = rapportVisiteRepository.findOneByUserAndId(this.getUser(),id);
+        if (rapportVisite == null)
+        {
+            throw new RessouceNotFoundExeption("rapport visite not found");
+        }
+        else
+        {
+            return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+        }
+
     }
 
     @RequestMapping(value = "rapportVisites", method = RequestMethod.GET)

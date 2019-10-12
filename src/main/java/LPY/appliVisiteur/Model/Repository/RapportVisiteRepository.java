@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface RapportVisiteRepository extends CrudRepository<RapportVisite, Integer> {
     Optional<RapportVisite> findById(Long id);
     Collection<RapportVisite> findByUser(User user);
+    RapportVisite findOneByUserAndId(User user, long id);
 }
