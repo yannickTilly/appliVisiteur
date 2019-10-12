@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface PeriodeTravailleeRepository extends CrudRepository<PeriodeTravaillee, Integer> {
-    Optional<PeriodeTravaillee> findById(Long id);
+    Optional<PeriodeTravaillee> findById(long id);
     Collection<PeriodeTravaillee>findByUser(User user);
+    PeriodeTravaillee findByIdAndUser(long id, User user);
 }
