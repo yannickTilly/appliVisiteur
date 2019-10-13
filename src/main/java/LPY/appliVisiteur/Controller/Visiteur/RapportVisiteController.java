@@ -8,6 +8,7 @@ import LPY.appliVisiteur.Model.Repository.MedicamentRepository;
 import LPY.appliVisiteur.Model.Repository.PraticienRepository;
 import LPY.appliVisiteur.Model.Repository.PresentationMedicamentRepository;
 import LPY.appliVisiteur.Model.Repository.RapportVisiteRepository;
+import LPY.appliVisiteur.Model.RequestBody.Visiteur.PresentationMedicamentBody;
 import LPY.appliVisiteur.Model.RequestBody.Visiteur.RapportVisiteBody;
 import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,6 +43,21 @@ public class RapportVisiteController extends BaseController {
         else
         {
             return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+        }
+
+    }
+
+    @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.DELETE)
+    public String deleteRapportVisite(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+        RapportVisite rapportVisite = rapportVisiteRepository.findOneByUserAndId(this.getUser(),id);
+        if (rapportVisite == null)
+        {
+            throw new RessouceNotFoundExeption("rapport visite not found");
+        }
+        else
+        {
+            rapportVisiteRepository.delete(rapportVisite);
+            return this.createResponse(this.getUser().getRapportVisites(), RapportVisiteView.rapportVisite.class);
         }
 
     }
@@ -88,5 +104,24 @@ public class RapportVisiteController extends BaseController {
         rapportVisiteRepository.save(rapportVisite);
         presentationMedicamentRepository.saveAll(presentationMedicaments);
         return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+    }
+
+    @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.PATCH)
+    public String patchRapportVisite(@PathVariable("id") Long id, @RequestBody RapportVisiteBody rapportVisiteBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+        RapportVisite rapportVisite = rapportVisiteRepository.findOneByUserAndId(this.getUser(),id);
+        if (rapportVisite == null)
+        {
+            throw new RessouceNotFoundExeption("rapport visite not found");
+        }
+        else
+        {
+            if (rapportVisiteBody.getNote() != null)
+            {
+                rapportVisite.setNote(rapportVisiteBody.getNote());
+            }
+            rapportVisiteRepository.save(rapportVisite);
+            return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+        }
+
     }
 }
