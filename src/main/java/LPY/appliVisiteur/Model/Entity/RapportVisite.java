@@ -11,21 +11,21 @@ import java.util.Collection;
 public class RapportVisite {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView(RapportVisiteView.RapportVisite.class)
     private long id;
 
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView(RapportVisiteView.RapportVisite.class)
     private String note;
 
     @ManyToOne
     private User user;
 
     @OneToMany(mappedBy = "rapportVisite")
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView(RapportVisiteView.RapportVisite.class)
     private Collection<PresentationMedicament> presentationMedicaments;
 
     @ManyToOne
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView(RapportVisiteView.RapportVisite.class)
     private Praticien praticien;
 
     public String getNote() {

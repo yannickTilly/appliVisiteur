@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface DepartementRepository extends CrudRepository<Departement, Integer> {
-    Optional<Departement> findById(Long id);
+public interface DepartementRepository extends CrudRepository<Departement, Long> {
+    Departement findOneById(Long id);
 }

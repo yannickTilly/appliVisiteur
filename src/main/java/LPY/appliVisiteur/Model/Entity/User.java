@@ -10,35 +10,35 @@ import java.util.Collection;
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private long id;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private String nom;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private String login;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private int numeroVoie;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private String typeVoie;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private String nomVoie;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private String codePostal;
 
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private String ville;
 
     @OneToMany(mappedBy="user")
     private Collection<RapportVisite> rapportVisites ;
 
     @OneToMany(mappedBy = "user")
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private Collection<PeriodeTravaillee> periodeTravaillees;
 
     public long getId() {

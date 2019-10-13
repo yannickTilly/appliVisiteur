@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface SecteurRepository extends CrudRepository<Secteur, Integer>
 {
-    Optional<Secteur> findById(Long id);
+    Secteur findOneById(Long id);
 }

@@ -11,6 +11,7 @@ import LPY.appliVisiteur.Model.Repository.PraticienRepository;
 import LPY.appliVisiteur.Model.Repository.PresentationMedicamentRepository;
 import LPY.appliVisiteur.Model.Repository.RapportVisiteRepository;
 import LPY.appliVisiteur.Model.RequestBody.Visiteur.PresentationMedicamentBody;
+import LPY.appliVisiteur.Model.View.Visiteur.PresentationMedicamentView;
 import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class PresentationMedicamentController extends BaseController {
             presentationMedicament.setMedicament(medicament);
             rapportVisite.getPresentationMedicaments().add(presentationMedicament);
             presentationMedicamentRepository.save(presentationMedicament);
-            return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+            return this.createResponse(rapportVisite, RapportVisiteView.RapportVisite.class);
         }
     }
 
@@ -63,7 +64,23 @@ public class PresentationMedicamentController extends BaseController {
         else
         {
             presentationMedicamentRepository.delete(presentationMedicament);
-            return this.createResponse(presentationMedicament.getRapportVisite(), RapportVisiteView.rapportVisite.class);
+            return this.createResponse(presentationMedicament.getRapportVisite(), RapportVisiteView.RapportVisite.class);
+        }
+
+    }
+
+    @RequestMapping(value = "presentationMedicament/{idPresentationMedicament}", method = RequestMethod.GET)
+    public String getMedicament(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
+            throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
+    {
+        PresentationMedicament presentationMedicament = presentationMedicamentRepository.findOneById(idPresentationMedicament);
+        if (presentationMedicament == null)
+        {
+            throw new RessouceNotFoundExeption("presentation medicament not found");
+        }
+        else
+        {
+            return this.createResponse(presentationMedicament, PresentationMedicamentView.PresentationMedicament.class);
         }
 
     }

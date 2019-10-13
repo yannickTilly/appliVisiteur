@@ -12,18 +12,18 @@ public class PeriodeTravaillee {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView({PeriodeTravailleeView.periodeTravaille.class, UserView.user.class})
+    @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class})
     private long id;
 
     @ManyToOne
     private User user;
 
     @ManyToOne
-    @JsonView({PeriodeTravailleeView.periodeTravaille.class, UserView.user.class})
+    @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class})
     private Departement departement;
 
     @ManyToOne
-    @JsonView({PeriodeTravailleeView.periodeTravaille.class, UserView.user.class})
+    @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class})
     private Region region;
 
     public long getId() {

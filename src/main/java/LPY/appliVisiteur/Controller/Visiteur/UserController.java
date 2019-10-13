@@ -26,7 +26,7 @@ public class UserController extends BaseController
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String getVisiteur() throws UserNotFoundException, JsonProcessingException {
-        return this.createResponse(this.getUser(), UserView.user.class);
+        return this.createResponse(this.getUser(), UserView.User.class);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
@@ -54,6 +54,6 @@ public class UserController extends BaseController
             user.setVille(visiteurBody.getVille());
         }
         userRepository.save(user);
-        return this.createResponse(this.getUser(), UserView.user.class);
+        return this.createResponse(this.getUser(), UserView.User.class);
     }
 }

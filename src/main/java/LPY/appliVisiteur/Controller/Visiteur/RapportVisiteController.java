@@ -42,7 +42,7 @@ public class RapportVisiteController extends BaseController {
         }
         else
         {
-            return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+            return this.createResponse(rapportVisite, RapportVisiteView.RapportVisite.class);
         }
 
     }
@@ -57,7 +57,7 @@ public class RapportVisiteController extends BaseController {
         else
         {
             rapportVisiteRepository.delete(rapportVisite);
-            return this.createResponse(this.getUser().getRapportVisites(), RapportVisiteView.rapportVisite.class);
+            return this.createResponse(this.getUser().getRapportVisites(), RapportVisiteView.RapportVisite.class);
         }
 
     }
@@ -66,7 +66,7 @@ public class RapportVisiteController extends BaseController {
     public String getRapportVisites() throws UserNotFoundException, JsonProcessingException {
         User user = this.getUser();
         Collection<RapportVisite> rapportVisites = rapportVisiteRepository.findByUser(user);
-        return this.createResponse(rapportVisites, RapportVisiteView.rapportVisite.class);
+        return this.createResponse(rapportVisites, RapportVisiteView.RapportVisite.class);
     }
 
     @RequestMapping(value = "rapportVisite", method = RequestMethod.POST)
@@ -103,7 +103,7 @@ public class RapportVisiteController extends BaseController {
         rapportVisite.setNote(rapportVisiteBody.getNote());
         rapportVisiteRepository.save(rapportVisite);
         presentationMedicamentRepository.saveAll(presentationMedicaments);
-        return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+        return this.createResponse(rapportVisite, RapportVisiteView.RapportVisite.class);
     }
 
     @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.PATCH)
@@ -120,7 +120,7 @@ public class RapportVisiteController extends BaseController {
                 rapportVisite.setNote(rapportVisiteBody.getNote());
             }
             rapportVisiteRepository.save(rapportVisite);
-            return this.createResponse(rapportVisite, RapportVisiteView.rapportVisite.class);
+            return this.createResponse(rapportVisite, RapportVisiteView.RapportVisite.class);
         }
 
     }

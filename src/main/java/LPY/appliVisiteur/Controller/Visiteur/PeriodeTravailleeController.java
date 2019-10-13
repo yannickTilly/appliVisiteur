@@ -30,7 +30,7 @@ public class PeriodeTravailleeController extends BaseController {
         }
         else
         {
-            return this.createResponse(periodeTravaillee, PeriodeTravailleeView.periodeTravaille.class);
+            return this.createResponse(periodeTravaillee, PeriodeTravailleeView.PeriodeTravaille.class);
         }
     }
 
@@ -38,6 +38,6 @@ public class PeriodeTravailleeController extends BaseController {
     public String getPeriodeTravaillees() throws UserNotFoundException, JsonProcessingException {
         User user = this.getUser();
         Collection<PeriodeTravaillee> periodeTravaillees = periodeTravailleeRepository.findByUser(user);
-        return this.createResponse(periodeTravaillees, PeriodeTravailleeView.periodeTravaille.class);
+        return this.createResponse(periodeTravaillees, PeriodeTravailleeView.PeriodeTravaille.class);
     }
 }

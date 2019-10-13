@@ -1,5 +1,6 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.SecteurView;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -12,7 +13,7 @@ import javax.persistence.Id;
 public class Secteur {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView(UserView.user.class)
+    @JsonView({UserView.User.class, SecteurView.Secteur.class})
     private long id;
 
     public long getId() {

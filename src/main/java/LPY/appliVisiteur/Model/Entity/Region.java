@@ -1,6 +1,7 @@
 package LPY.appliVisiteur.Model.Entity;
 
 import LPY.appliVisiteur.Model.View.Visiteur.PeriodeTravailleeView;
+import LPY.appliVisiteur.Model.View.Visiteur.RegionView;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -11,14 +12,14 @@ import java.util.Collection;
 public class Region {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView({PeriodeTravailleeView.periodeTravaille.class, UserView.user.class})
+    @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
     private long id;
 
     @OneToMany
     private Collection<PeriodeTravaillee> periodeTravaillees;
 
     @ManyToOne
-    @JsonView(UserView.user.class)
+    @JsonView(UserView.User.class)
     private Secteur secteur;
 
     public long getId() {

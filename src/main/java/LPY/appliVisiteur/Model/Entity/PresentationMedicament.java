@@ -1,5 +1,7 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.PraticienView;
+import LPY.appliVisiteur.Model.View.Visiteur.PresentationMedicamentView;
 import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -9,14 +11,15 @@ import javax.persistence.*;
 public class PresentationMedicament {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, PresentationMedicamentView.PresentationMedicament.class})
     private long id;
 
     @ManyToOne
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, PresentationMedicamentView.PresentationMedicament.class})
     private Medicament medicament;
 
     @ManyToOne
+    @JsonView(PresentationMedicamentView.PresentationMedicament.class)
     private  RapportVisite rapportVisite;
 
     public Medicament getMedicament() {

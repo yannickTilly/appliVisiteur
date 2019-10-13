@@ -1,5 +1,6 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.PraticienView;
 import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -10,13 +11,14 @@ import java.util.Collection;
 public class Praticien {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView(RapportVisiteView.rapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, PraticienView.Praticien.class})
     private long id;
 
     @OneToMany
     private Collection<RapportVisite> rapportVisites;
 
     @OneToMany
+    @JsonView(PraticienView.Praticien.class)
     private Collection<Diplome> diplomes;
 
     public long getId() {
