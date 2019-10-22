@@ -22,6 +22,14 @@ public class Region {
     @JsonView(UserView.User.class)
     private Secteur secteur;
 
+    @OneToMany(mappedBy = "region")
+    private Collection<User> delegues;
+
+    @OneToMany(mappedBy = "region")
+    private Collection<RapportVisite> rapportVisites;
+
+
+
     public long getId() {
         return id;
     }
@@ -46,6 +54,24 @@ public class Region {
 
     public Region setSecteur(Secteur secteur) {
         this.secteur = secteur;
+        return this;
+    }
+
+    public Collection<User> getDelegues() {
+        return delegues;
+    }
+
+    public Region setDelegues(Collection<User> delegues) {
+        this.delegues = delegues;
+        return this;
+    }
+
+    public Collection<RapportVisite> getRapportVisites() {
+        return rapportVisites;
+    }
+
+    public Region setRapportVisites(Collection<RapportVisite> rapportVisites) {
+        this.rapportVisites = rapportVisites;
         return this;
     }
 }

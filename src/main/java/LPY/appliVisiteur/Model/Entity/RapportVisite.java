@@ -11,22 +11,28 @@ import java.util.Collection;
 public class RapportVisite {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView(RapportVisiteView.RapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
     private long id;
 
-    @JsonView(RapportVisiteView.RapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
+
     private String note;
 
     @ManyToOne
+    @JsonView({RapportVisiteView.DelegueRapportVisite.class, })
     private User user;
 
     @OneToMany(mappedBy = "rapportVisite")
-    @JsonView(RapportVisiteView.RapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
     private Collection<PresentationMedicament> presentationMedicaments;
 
     @ManyToOne
-    @JsonView(RapportVisiteView.RapportVisite.class)
+    @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
     private Praticien praticien;
+
+    @ManyToOne
+    private Region region;
+
 
     public String getNote() {
         return note;
@@ -76,4 +82,15 @@ public class RapportVisite {
         this.praticien = praticien;
         return this;
     }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public RapportVisite setRegion(Region region) {
+        this.region = region;
+        return this;
+    }
+
+
 }

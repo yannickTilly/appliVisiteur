@@ -20,18 +20,19 @@ import java.util.Collection;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("visiteur")
 public class RapportVisiteController extends BaseController {
     @Autowired
-    private RapportVisiteRepository rapportVisiteRepository;
+    protected RapportVisiteRepository rapportVisiteRepository;
 
     @Autowired
-    private MedicamentRepository medicamentRepository;
+    protected MedicamentRepository medicamentRepository;
 
     @Autowired
-    private PraticienRepository praticienRepository;
+    protected PraticienRepository praticienRepository;
 
     @Autowired
-    private PresentationMedicamentRepository presentationMedicamentRepository;
+    protected PresentationMedicamentRepository presentationMedicamentRepository;
 
     @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.GET)
     public String getRapportVisite(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {

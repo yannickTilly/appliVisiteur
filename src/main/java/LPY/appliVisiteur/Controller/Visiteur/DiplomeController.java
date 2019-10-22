@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("visiteur")
 public class DiplomeController extends BaseController {
     @Autowired
     private DiplomeRepository diplomeRepository;

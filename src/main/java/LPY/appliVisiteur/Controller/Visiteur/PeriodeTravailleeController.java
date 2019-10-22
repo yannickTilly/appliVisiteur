@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
+@RequestMapping("visiteur")
 public class PeriodeTravailleeController extends BaseController {
     @Autowired
     private PeriodeTravailleeRepository periodeTravailleeRepository;
 
     @RequestMapping(value = "periodeTravaillee/{id}", method = RequestMethod.GET)
-    public String getDepartement(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
+    public String getPeriodeTravaillee(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
         PeriodeTravaillee periodeTravaillee = periodeTravailleeRepository.findByIdAndUser(id, this.getUser());
         if (periodeTravaillee == null)
         {

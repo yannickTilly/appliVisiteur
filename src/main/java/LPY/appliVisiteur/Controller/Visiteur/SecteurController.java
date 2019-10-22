@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("visiteur")
 public class SecteurController extends BaseController {
     @Autowired
     private SecteurRepository secteurRepository;

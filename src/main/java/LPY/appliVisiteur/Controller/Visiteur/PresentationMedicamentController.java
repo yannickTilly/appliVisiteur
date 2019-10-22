@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("visiteur")
 public class PresentationMedicamentController extends BaseController {
     @Autowired
     private RapportVisiteRepository rapportVisiteRepository;
