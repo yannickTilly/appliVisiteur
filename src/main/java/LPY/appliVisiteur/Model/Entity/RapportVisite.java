@@ -8,15 +8,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Reports")
 public class RapportVisite {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
     private long id;
 
     @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
-
-    private String note;
+    @Column(name = "description", length = 100)
+    private String description;
 
     @ManyToOne
     @JsonView({RapportVisiteView.DelegueRapportVisite.class, })
@@ -33,13 +35,17 @@ public class RapportVisite {
     @ManyToOne
     private Region region;
 
+    @JsonView({RapportVisiteView.RapportVisite.class, RapportVisiteView.DelegueRapportVisite.class})
+    @Column(name = "sample_number")
+    private int sampleNumber;
 
-    public String getNote() {
-        return note;
+
+    public String getDescription() {
+        return description;
     }
 
-    public RapportVisite setNote(String note) {
-        this.note = note;
+    public RapportVisite setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -92,5 +98,12 @@ public class RapportVisite {
         return this;
     }
 
+    public int getSampleNumber() {
+        return sampleNumber;
+    }
 
+    public RapportVisite setSampleNumber(int sampleNumber) {
+        this.sampleNumber = sampleNumber;
+        return this;
+    }
 }

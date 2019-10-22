@@ -6,16 +6,27 @@ import LPY.appliVisiteur.Model.View.Visiteur.PraticienView;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
+@Table(name = "Diplomas")
 public class Diplome {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView({DepartementView.Departement.class, PraticienView.Praticien.class, DiplomeView.Diplome.class})
+    @Column(name = "id", unique = true)
+    @JsonView({PraticienView.Praticien.class, DiplomeView.Diplome.class})
     private long id;
 
-    @ManyToOne
-    private Praticien praticien;
+    @Column(name = "name")
+    @JsonView({PraticienView.Praticien.class, DiplomeView.Diplome.class})
+    private String name;
+
+    @Column(name = "speciality")
+    @JsonView({PraticienView.Praticien.class, DiplomeView.Diplome.class})
+    private String speciality;
+
+    @ManyToMany(mappedBy = "diplomes")
+    private Collection<Praticien> praticiens;
 
     public long getId() {
         return id;
@@ -26,12 +37,30 @@ public class Diplome {
         return this;
     }
 
-    public Praticien getPraticien() {
-        return praticien;
+    public String getName() {
+        return name;
     }
 
-    public Diplome setPraticien(Praticien praticien) {
-        this.praticien = praticien;
+    public Diplome setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public Diplome setSpeciality(String speciality) {
+        this.speciality = speciality;
+        return this;
+    }
+
+    public Collection<Praticien> getPraticiens() {
+        return praticiens;
+    }
+
+    public Diplome setPraticiens(Collection<Praticien> praticiens) {
+        this.praticiens = praticiens;
         return this;
     }
 }

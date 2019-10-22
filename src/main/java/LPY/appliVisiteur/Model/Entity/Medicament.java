@@ -9,11 +9,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Drugs")
 public class Medicament {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     @JsonView({RapportVisiteView.RapportVisite.class, MedicamentView.Medicament.class})
     private long id;
+
+    @Column(name = "name", length = 50)
+    @JsonView({RapportVisiteView.RapportVisite.class, MedicamentView.Medicament.class})
+    private String name;
+
+    @Column(name = "description", length = 100)
+    @JsonView({MedicamentView.Medicament.class})
+    private String description;
 
     @OneToMany(mappedBy = "medicament")
     private Collection<PresentationMedicament> presentationMedicaments;
@@ -38,6 +48,24 @@ public class Medicament {
 
     public Medicament setPresentationMedicaments(Collection<PresentationMedicament> presentationMedicaments) {
         this.presentationMedicaments = presentationMedicaments;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Medicament setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Medicament setDescription(String description) {
+        this.description = description;
         return this;
     }
 }

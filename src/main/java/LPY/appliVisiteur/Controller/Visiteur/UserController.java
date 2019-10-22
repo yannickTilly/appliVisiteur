@@ -34,25 +34,13 @@ public class UserController extends BaseController
     public String postVisiteur(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
 
         User user = this.getUser();
-        if (visiteurBody.getNumeroVoie() != null)
-        {
-            user.setNumeroVoie(visiteurBody.getNumeroVoie());
-        }
-        if (visiteurBody.getCodePostal() != null)
-        {
-            user.setCodePostal(visiteurBody.getCodePostal());
-        }
-        if (visiteurBody.getNomVoie() != null)
-        {
-            user.setNomVoie(visiteurBody.getNomVoie());
-        }
-        if (visiteurBody.getTypeVoie() != null)
-        {
-            user.setTypeVoie(visiteurBody.getTypeVoie());
-        }
         if (visiteurBody.getVille() != null)
         {
             user.setVille(visiteurBody.getVille());
+        }
+        if (visiteurBody.getCodePostal() != null)
+        {
+            user.setVille(visiteurBody.getCodePostal());
         }
         userRepository.save(user);
         return this.createResponse(this.getUser(), UserView.User.class);

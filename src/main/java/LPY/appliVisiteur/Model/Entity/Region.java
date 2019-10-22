@@ -9,13 +9,23 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Regions")
 public class Region {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
     private long id;
 
-    @OneToMany
+    @Column(name = "code", length = 10)
+    @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
+    private String code;
+
+    @Column(name = "name", length = 30)
+    @JsonView({PeriodeTravailleeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
+    private String name;
+
+    @OneToMany(mappedBy = "region")
     private Collection<PeriodeTravaillee> periodeTravaillees;
 
     @ManyToOne
@@ -72,6 +82,24 @@ public class Region {
 
     public Region setRapportVisites(Collection<RapportVisite> rapportVisites) {
         this.rapportVisites = rapportVisites;
+        return this;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public Region setCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Region setName(String name) {
+        this.name = name;
         return this;
     }
 }

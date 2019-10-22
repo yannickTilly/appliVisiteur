@@ -8,9 +8,11 @@ import com.fasterxml.jackson.annotation.JsonView;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "DrugPresentations")
 public class PresentationMedicament {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     @JsonView({RapportVisiteView.RapportVisite.class, PresentationMedicamentView.PresentationMedicament.class})
     private long id;
 

@@ -8,32 +8,45 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
     private long id;
 
     @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @Column(name = "first_name")
+    private String prenom;
+
+    @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @Column(name = "last_name")
     private String nom;
 
     @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @Column(name = "login", unique = true)
     private String login;
 
-    @JsonView(UserView.User.class)
-    private int numeroVoie;
+
+    @Column(name = "password")
+    private String password;
 
     @JsonView(UserView.User.class)
-    private String typeVoie;
-
-    @JsonView(UserView.User.class)
-    private String nomVoie;
-
-    @JsonView(UserView.User.class)
+    @Column(name = "cp")
     private String codePostal;
 
     @JsonView(UserView.User.class)
+    @Column(name = "city")
     private String ville;
+
+    @JsonView(UserView.User.class)
+    @Column(name = "hiring_date")
+    private String hiringDate;
+
+    @JsonView(UserView.User.class)
+    @Column(name = "matricule")
+    private String matricule;
 
     @OneToMany(mappedBy="user")
     private Collection<RapportVisite> rapportVisites ;
@@ -70,33 +83,6 @@ public class User {
 
     public User setLogin(String login) {
         this.login = login;
-        return this;
-    }
-
-    public int getNumeroVoie() {
-        return numeroVoie;
-    }
-
-    public User setNumeroVoie(int numeroVoie) {
-        this.numeroVoie = numeroVoie;
-        return this;
-    }
-
-    public String getTypeVoie() {
-        return typeVoie;
-    }
-
-    public User setTypeVoie(String typeVoie) {
-        this.typeVoie = typeVoie;
-        return this;
-    }
-
-    public String getNomVoie() {
-        return nomVoie;
-    }
-
-    public User setNomVoie(String nomVoie) {
-        this.nomVoie = nomVoie;
         return this;
     }
 
@@ -142,6 +128,42 @@ public class User {
 
     public User setRegion(Region region) {
         this.region = region;
+        return this;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public User setPrenom(String prenom) {
+        this.prenom = prenom;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public String getHiringDate() {
+        return hiringDate;
+    }
+
+    public User setHiringDate(String hiringDate) {
+        this.hiringDate = hiringDate;
+        return this;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public User setMatricule(String matricule) {
+        this.matricule = matricule;
         return this;
     }
 }

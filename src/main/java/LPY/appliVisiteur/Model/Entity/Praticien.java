@@ -8,18 +8,25 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Pratitionners")
 public class Praticien {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     @JsonView({RapportVisiteView.RapportVisite.class, PraticienView.Praticien.class})
     private long id;
 
-    @OneToMany
+    @OneToMany(mappedBy = "praticien")
     private Collection<RapportVisite> rapportVisites;
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+            name = "diploma_pratitionners")
     @JsonView(PraticienView.Praticien.class)
     private Collection<Diplome> diplomes;
+
+    @Column(name = "first_name", length = 50)
+    private String first_name;
 
     public long getId() {
         return id;
@@ -45,6 +52,15 @@ public class Praticien {
 
     public Praticien setDiplomes(Collection<Diplome> diplomes) {
         this.diplomes = diplomes;
+        return this;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public Praticien setFirst_name(String first_name) {
+        this.first_name = first_name;
         return this;
     }
 }

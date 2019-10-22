@@ -101,7 +101,7 @@ public class RapportVisiteController extends BaseController {
 
         rapportVisite.setUser(user);
         rapportVisite.setPresentationMedicaments(presentationMedicaments);
-        rapportVisite.setNote(rapportVisiteBody.getNote());
+        rapportVisite.setDescription(rapportVisiteBody.getNote());
         rapportVisiteRepository.save(rapportVisite);
         presentationMedicamentRepository.saveAll(presentationMedicaments);
         return this.createResponse(rapportVisite, RapportVisiteView.RapportVisite.class);
@@ -118,7 +118,7 @@ public class RapportVisiteController extends BaseController {
         {
             if (rapportVisiteBody.getNote() != null)
             {
-                rapportVisite.setNote(rapportVisiteBody.getNote());
+                rapportVisite.setDescription(rapportVisiteBody.getNote());
             }
             rapportVisiteRepository.save(rapportVisite);
             return this.createResponse(rapportVisite, RapportVisiteView.RapportVisite.class);
