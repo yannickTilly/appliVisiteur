@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("visiteur")
+@RequestMapping("visitor")
 public class VisitorWorkedTimeController extends BaseController {
     @Autowired
     private WorkedTimeRepository workedTimeRepository;
 
     @RequestMapping(value = "workedTime/{id}", method = RequestMethod.GET)
-    public String getPeriodeTravaillee(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
+    public String getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
         WorkedTime workedTime = workedTimeRepository.findByIdAndUser(id, this.getUser());
         if (workedTime == null)
         {
@@ -36,7 +36,7 @@ public class VisitorWorkedTimeController extends BaseController {
     }
 
     @RequestMapping(value = "workedTimes", method = RequestMethod.GET)
-    public String getPeriodeTravaillees() throws UserNotFoundException, JsonProcessingException {
+    public String getWorkedTimes() throws UserNotFoundException, JsonProcessingException {
         User user = this.getUser();
         Collection<WorkedTime> workedTimes = workedTimeRepository.findByUser(user);
         return this.createResponse(workedTimes, WorkedTimeView.PeriodeTravaille.class);

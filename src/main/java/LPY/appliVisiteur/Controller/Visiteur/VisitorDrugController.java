@@ -19,7 +19,7 @@ public class VisitorDrugController extends BaseController {
     private DrugRepository drugRepository;
 
     @RequestMapping(value = "drug/{id}", method = RequestMethod.GET)
-    public String getDepartement(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    public String getDepartment(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Drug drug = drugRepository.findOneById(id);
         if (drug == null)
         {
@@ -29,7 +29,7 @@ public class VisitorDrugController extends BaseController {
     }
 
     @RequestMapping(value = "drugs", method = RequestMethod.GET)
-    public String getMedicaments() throws JsonProcessingException {
+    public String getDrugs() throws JsonProcessingException {
         return createResponse(drugRepository.findAll(), DrugView.Medicament.class);
     }
 }

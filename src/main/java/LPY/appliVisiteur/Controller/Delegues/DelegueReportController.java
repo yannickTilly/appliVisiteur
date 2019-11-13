@@ -24,26 +24,26 @@ public class DelegueReportController extends VisitorReportController {
     private UserRepository userRepository;
 
     @Override
-    @RequestMapping(value = "rapportVisite/{id}", method = RequestMethod.GET)
-    public String getRapportVisite(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+    @RequestMapping(value = "report/{id}", method = RequestMethod.GET)
+    public String getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
         Report report = reportRepository.findOneByIdAndRegion(id, this.getUser().getRegion());
 
         if (report == null) {
-            throw new RessouceNotFoundExeption("Aucun résulat");
+            throw new RessouceNotFoundExeption("No results found");
         } else {
             return this.createResponse(report, ReportView.RapportVisite.class);
         }
     }
 
     @Override
-    @RequestMapping(value = "rapportVisites", method = RequestMethod.GET)
-    public String getRapportVisites() throws UserNotFoundException, JsonProcessingException {
+    @RequestMapping(value = "reports", method = RequestMethod.GET)
+    public String getReports() throws UserNotFoundException, JsonProcessingException {
         Collection<Report> reports = this.getUser().getRegion().getReports();
         return this.createResponse(reports, ReportView.DelegueRapportVisite.class);
     }
 
-    @RequestMapping(value = "user/{userId}/rapportVisites", method = RequestMethod.GET)
-    public String getRapportVisites(@PathVariable("userId") Long id) throws UserNotFoundException, JsonProcessingException {
+    @RequestMapping(value = "user/{userId}/reports", method = RequestMethod.GET)
+    public String getReports(@PathVariable("userId") Long id) throws UserNotFoundException, JsonProcessingException {
         User user = userRepository.findOneById(id);
         Collection<Report> reports = reportRepository.findByUserAndRegion(user, this.getUser().getRegion());
 
@@ -51,7 +51,7 @@ public class DelegueReportController extends VisitorReportController {
         {
             return this.createResponse(reports, ReportView.RapportVisite.class);
         }else {
-            throw new UserNotFoundException("Aucun utilisateur trouvé avec cet id");
+            throw new UserNotFoundException("No user found with this id");
         }
     }
 }

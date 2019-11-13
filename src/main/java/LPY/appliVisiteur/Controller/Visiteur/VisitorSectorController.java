@@ -18,13 +18,13 @@ public class VisitorSectorController extends BaseController {
     private SecteurRepository secteurRepository;
 
     @RequestMapping(value = "sector/{id}", method = RequestMethod.GET)
-    public String getSecteur(@PathVariable("id") Long id) throws JsonProcessingException {
+    public String getSector(@PathVariable("id") Long id) throws JsonProcessingException {
         Sector sector = secteurRepository.findOneById(id);
         return createResponse(sector, SectorView.Secteur.class);
     }
 
     @RequestMapping(value = "sectors", method = RequestMethod.GET)
-    public String getSecteurs() throws JsonProcessingException {
+    public String getSectors() throws JsonProcessingException {
         return createResponse(secteurRepository.findAll(), SectorView.Secteur.class);
     }
 }

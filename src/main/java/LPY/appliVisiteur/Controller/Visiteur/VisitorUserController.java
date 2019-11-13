@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("visiteur")
+@RequestMapping("visitor")
 public class VisitorUserController extends BaseController
 {
     @Autowired
@@ -26,12 +26,12 @@ public class VisitorUserController extends BaseController
     private ReportRepository reportRepository;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String getVisiteur() throws UserNotFoundException, JsonProcessingException {
+    public String getVisitor() throws UserNotFoundException, JsonProcessingException {
         return this.createResponse(this.getUser(), UserView.User.class);
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
-    public String postVisiteur(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
+    public String postVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
 
         User user = this.getUser();
         if (visiteurBody.getVille() != null)

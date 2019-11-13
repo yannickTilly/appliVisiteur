@@ -19,7 +19,7 @@ public class VisitorDepartmentController extends BaseController {
     private DepartmentRepository departmentRepository;
 
     @RequestMapping(value = "department/{id}", method = RequestMethod.GET)
-    public String getDepartement(@PathVariable("id") long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    public String getDepartment(@PathVariable("id") long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Department department = departmentRepository.findOneById(id);
         if (department == null)
         {
@@ -29,7 +29,7 @@ public class VisitorDepartmentController extends BaseController {
     }
 
     @RequestMapping(value = "departments", method = RequestMethod.GET)
-    public String getDepartements() throws JsonProcessingException {
+    public String getDepartments() throws JsonProcessingException {
         return this.createResponse(departmentRepository.findAll(), DepartmentView.Departement.class);
     }
 }

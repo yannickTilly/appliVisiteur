@@ -33,7 +33,7 @@ public class VisitorDrugPresentationController extends BaseController {
     private DrugPresentationRepository drugPresentationRepository;
 
     @RequestMapping(value = "drugPresentation", method = RequestMethod.POST)
-    public String patchMedicament(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
+    public String patchDrug(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
         Report report = reportRepository.findOneByUserAndId(this.getUser(),presentationMedicamentBody.getIdRapportVisite());
@@ -54,7 +54,7 @@ public class VisitorDrugPresentationController extends BaseController {
     }
 
     @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.DELETE)
-    public String deleteMedicament(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
+    public String deleteDrug(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
         DrugPresentation drugPresentation = drugPresentationRepository.findOneById(idPresentationMedicament);
@@ -71,7 +71,7 @@ public class VisitorDrugPresentationController extends BaseController {
     }
 
     @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.GET)
-    public String getMedicament(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
+    public String getDrug(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
         DrugPresentation drugPresentation = drugPresentationRepository.findOneById(idPresentationMedicament);
