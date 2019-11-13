@@ -1,10 +1,10 @@
 package LPY.appliVisiteur.Controller.Delegues;
 
-import LPY.appliVisiteur.Controller.Visiteur.RegionController;
+import LPY.appliVisiteur.Controller.Visiteur.VisitorRegionController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("delegues")
-public class DelegueRegionController extends RegionController {
+public class DelegueRegionController extends VisitorRegionController {
 }

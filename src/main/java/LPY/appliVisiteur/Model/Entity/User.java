@@ -1,6 +1,6 @@
 package LPY.appliVisiteur.Model.Entity;
 
-import LPY.appliVisiteur.Model.View.Visiteur.RapportVisiteView;
+import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -13,18 +13,18 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     private long id;
 
-    @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "first_name")
     private String prenom;
 
-    @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "last_name")
     private String nom;
 
-    @JsonView({UserView.User.class, RapportVisiteView.DelegueRapportVisite.class})
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "login", unique = true)
     private String login;
 
@@ -49,11 +49,11 @@ public class User {
     private String matricule;
 
     @OneToMany(mappedBy="user")
-    private Collection<RapportVisite> rapportVisites ;
+    private Collection<Report> reports;
 
     @OneToMany(mappedBy = "user")
     @JsonView(UserView.User.class)
-    private Collection<PeriodeTravaillee> periodeTravaillees;
+    private Collection<WorkedTime> workedTimes;
 
     @ManyToOne()
     private Region region;
@@ -104,21 +104,21 @@ public class User {
         return this;
     }
 
-    public Collection<RapportVisite> getRapportVisites() {
-        return rapportVisites;
+    public Collection<Report> getReports() {
+        return reports;
     }
 
-    public User setRapportVisites(Collection<RapportVisite> rapportVisites) {
-        this.rapportVisites = rapportVisites;
+    public User setReports(Collection<Report> reports) {
+        this.reports = reports;
         return this;
     }
 
-    public Collection<PeriodeTravaillee> getPeriodeTravaillees() {
-        return periodeTravaillees;
+    public Collection<WorkedTime> getWorkedTimes() {
+        return workedTimes;
     }
 
-    public User setPeriodeTravaillees(Collection<PeriodeTravaillee> periodeTravaillees) {
-        this.periodeTravaillees = periodeTravaillees;
+    public User setWorkedTimes(Collection<WorkedTime> workedTimes) {
+        this.workedTimes = workedTimes;
         return this;
     }
 
