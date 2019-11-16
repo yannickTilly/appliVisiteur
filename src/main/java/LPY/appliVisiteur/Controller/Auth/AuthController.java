@@ -16,7 +16,7 @@ public class AuthController extends BaseController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
-    public String getVisiteur(@RequestBody Credential credential) {
+    public String getToken(@RequestBody Credential credential) {
         User user = userRepository.findByLogin(credential.getLogin());
         if(user != null)
         {

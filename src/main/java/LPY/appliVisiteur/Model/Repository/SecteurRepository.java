@@ -1,11 +1,9 @@
 package LPY.appliVisiteur.Model.Repository;
 
-import LPY.appliVisiteur.Model.Entity.Secteur;
+import LPY.appliVisiteur.Model.Entity.Sector;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.Optional;
-
-public interface SecteurRepository extends CrudRepository<Secteur, Integer>
+public interface SecteurRepository extends CrudRepository<Sector, Integer>
 {
-    Secteur findOneById(Long id);
+    Sector findOneById(Long id);
 }

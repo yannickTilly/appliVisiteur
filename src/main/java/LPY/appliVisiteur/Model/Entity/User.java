@@ -1,5 +1,6 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -7,39 +8,56 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @JsonView(UserView.User.class)
+    @Column(name = "id", unique = true)
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     private long id;
 
-    @JsonView(UserView.User.class)
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "first_name")
+    private String prenom;
+
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "last_name")
     private String nom;
 
-    @JsonView(UserView.User.class)
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "login", unique = true)
     private String login;
 
-    @JsonView(UserView.User.class)
-    private int numeroVoie;
+
+    @Column(name = "password")
+    private String password;
 
     @JsonView(UserView.User.class)
-    private String typeVoie;
-
-    @JsonView(UserView.User.class)
-    private String nomVoie;
-
-    @JsonView(UserView.User.class)
+    @Column(name = "cp")
     private String codePostal;
 
     @JsonView(UserView.User.class)
+    @Column(name = "city")
     private String ville;
 
+    @JsonView(UserView.User.class)
+    @Column(name = "hiring_date")
+    private String hiringDate;
+
+    @JsonView(UserView.User.class)
+    @Column(name = "matricule")
+    private String matricule;
+
     @OneToMany(mappedBy="user")
-    private Collection<RapportVisite> rapportVisites ;
+    private Collection<Report> reports;
 
     @OneToMany(mappedBy = "user")
     @JsonView(UserView.User.class)
-    private Collection<PeriodeTravaillee> periodeTravaillees;
+    private Collection<WorkedTime> workedTimes;
+
+    @ManyToOne()
+    private Region region;
+
 
     public long getId() {
         return id;
@@ -68,33 +86,6 @@ public class User {
         return this;
     }
 
-    public int getNumeroVoie() {
-        return numeroVoie;
-    }
-
-    public User setNumeroVoie(int numeroVoie) {
-        this.numeroVoie = numeroVoie;
-        return this;
-    }
-
-    public String getTypeVoie() {
-        return typeVoie;
-    }
-
-    public User setTypeVoie(String typeVoie) {
-        this.typeVoie = typeVoie;
-        return this;
-    }
-
-    public String getNomVoie() {
-        return nomVoie;
-    }
-
-    public User setNomVoie(String nomVoie) {
-        this.nomVoie = nomVoie;
-        return this;
-    }
-
     public String getCodePostal() {
         return codePostal;
     }
@@ -113,21 +104,66 @@ public class User {
         return this;
     }
 
-    public Collection<RapportVisite> getRapportVisites() {
-        return rapportVisites;
+    public Collection<Report> getReports() {
+        return reports;
     }
 
-    public User setRapportVisites(Collection<RapportVisite> rapportVisites) {
-        this.rapportVisites = rapportVisites;
+    public User setReports(Collection<Report> reports) {
+        this.reports = reports;
         return this;
     }
 
-    public Collection<PeriodeTravaillee> getPeriodeTravaillees() {
-        return periodeTravaillees;
+    public Collection<WorkedTime> getWorkedTimes() {
+        return workedTimes;
     }
 
-    public User setPeriodeTravaillees(Collection<PeriodeTravaillee> periodeTravaillees) {
-        this.periodeTravaillees = periodeTravaillees;
+    public User setWorkedTimes(Collection<WorkedTime> workedTimes) {
+        this.workedTimes = workedTimes;
+        return this;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public User setRegion(Region region) {
+        this.region = region;
+        return this;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public User setPrenom(String prenom) {
+        this.prenom = prenom;
+        return this;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
+    public String getHiringDate() {
+        return hiringDate;
+    }
+
+    public User setHiringDate(String hiringDate) {
+        this.hiringDate = hiringDate;
+        return this;
+    }
+
+    public String getMatricule() {
+        return matricule;
+    }
+
+    public User setMatricule(String matricule) {
+        this.matricule = matricule;
         return this;
     }
 }

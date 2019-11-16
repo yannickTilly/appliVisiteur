@@ -33,9 +33,9 @@ public class Authentificator {
                 .withIssuer("auth0")
                 .build(); //Reusable verifier instance
         DecodedJWT jwt = verifier.verify(token);
-        Optional<User> user = userRepository.findById(jwt.getClaim("id").asLong());
-        if (user.isPresent()) {
-            return user.get();
+        User user = userRepository.findOneById(jwt.getClaim("id").asLong());
+        if (user != null) {
+            return user;
         }
         else
         {

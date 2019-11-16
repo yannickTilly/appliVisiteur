@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface UserRepository extends CrudRepository<User, Integer> {
     User findByLogin(String login);
     @Transactional
-    Optional<User> findById(long id);
+    User findOneById(long id);
 }
