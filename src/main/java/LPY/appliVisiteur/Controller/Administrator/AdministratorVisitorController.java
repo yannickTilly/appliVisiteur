@@ -23,6 +23,7 @@ public class AdministratorVisitorController extends VisitorUserController {
         else
         {
             return this.createResponse(user, UserView.User.class);
+
         }
 
     }
