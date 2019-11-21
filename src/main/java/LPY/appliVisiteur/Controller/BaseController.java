@@ -18,7 +18,7 @@ public class BaseController {
     @Autowired
     private EntityManagerFactory em;
 
-    protected User getUser() throws UserNotFoundException {
+    protected User getUserEntity() throws UserNotFoundException {
         return this.authentificator.getUser();
     }
 

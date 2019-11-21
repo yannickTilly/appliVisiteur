@@ -1,6 +1,6 @@
 package LPY.appliVisiteur.Controller.Delegues;
 
-import LPY.appliVisiteur.Controller.Visiteur.VisitorDiplomaController;
+import LPY.appliVisiteur.Controller.Visitor.VisitorDiplomaController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

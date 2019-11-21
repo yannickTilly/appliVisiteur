@@ -1,9 +1,9 @@
 package LPY.appliVisiteur.Controller.Delegues;
 
-import LPY.appliVisiteur.Controller.Visiteur.VisitorReportController;
+import LPY.appliVisiteur.Controller.Visitor.VisitorReportController;
 import LPY.appliVisiteur.Model.Entity.Report;
 import LPY.appliVisiteur.Model.Entity.User;
-import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
+import LPY.appliVisiteur.Model.Exception.RessourceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
@@ -25,11 +25,11 @@ public class DelegueReportController extends VisitorReportController {
 
     @Override
     @RequestMapping(value = "report/{id}", method = RequestMethod.GET)
-    public String getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        Report report = reportRepository.findOneByIdAndRegion(id, this.getUser().getRegion());
+    public String getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessourceNotFoundExeption, JsonProcessingException {
+        Report report = reportRepository.findOneByIdAndRegion(id, this.getUserEntity().getRegion());
 
         if (report == null) {
-            throw new RessouceNotFoundExeption("No results found");
+            throw new RessourceNotFoundExeption("No results found");
         } else {
             return this.createResponse(report, ReportView.RapportVisite.class);
         }
@@ -38,14 +38,14 @@ public class DelegueReportController extends VisitorReportController {
     @Override
     @RequestMapping(value = "reports", method = RequestMethod.GET)
     public String getReports() throws UserNotFoundException, JsonProcessingException {
-        Collection<Report> reports = this.getUser().getRegion().getReports();
+        Collection<Report> reports = this.getUserEntity().getRegion().getReports();
         return this.createResponse(reports, ReportView.DelegueRapportVisite.class);
     }
 
     @RequestMapping(value = "user/{userId}/reports", method = RequestMethod.GET)
     public String getReports(@PathVariable("userId") Long id) throws UserNotFoundException, JsonProcessingException {
         User user = userRepository.findOneById(id);
-        Collection<Report> reports = reportRepository.findByUserAndRegion(user, this.getUser().getRegion());
+        Collection<Report> reports = reportRepository.findByUserAndRegion(user, this.getUserEntity().getRegion());
 
         if (user != null)
         {
