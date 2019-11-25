@@ -1,0 +1,191 @@
+@startuml
+
+title __VISITEUR's Class Diagram__\n
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DepartmentView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DepartmentView.Departement {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DiplomaView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DiplomaView.Diplome {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView.PresentationMedicament {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DrugView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.DrugView.Medicament {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.PratitionnerView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.PratitionnerView.Praticien {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.RegionView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.RegionView.Region {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.ReportView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.ReportView.DelegueRapportVisite {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.ReportView.RapportVisite {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.SectorView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.SectorView.Secteur {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.UserView {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.UserView.User {
+        }
+      }
+    }
+  
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView {
+        }
+      }
+    }
+
+    namespace PY.appliVisiteur {
+      namespace Model.View.Visiteur {
+        class LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView.PeriodeTravaille {
+        }
+      }
+    }
+
+  LPY.appliVisiteur.Model.View.Visiteur.DepartmentView +-down- LPY.appliVisiteur.Model.View.Visiteur.DepartmentView.Departement
+  LPY.appliVisiteur.Model.View.Visiteur.DiplomaView +-down- LPY.appliVisiteur.Model.View.Visiteur.DiplomaView.Diplome
+  LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView +-down- LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView.PresentationMedicament
+  LPY.appliVisiteur.Model.View.Visiteur.DrugView +-down- LPY.appliVisiteur.Model.View.Visiteur.DrugView.Medicament
+  LPY.appliVisiteur.Model.View.Visiteur.PratitionnerView +-down- LPY.appliVisiteur.Model.View.Visiteur.PratitionnerView.Praticien
+  LPY.appliVisiteur.Model.View.Visiteur.RegionView +-down- LPY.appliVisiteur.Model.View.Visiteur.RegionView.Region
+  LPY.appliVisiteur.Model.View.Visiteur.ReportView +-down- LPY.appliVisiteur.Model.View.Visiteur.ReportView.DelegueRapportVisite
+  LPY.appliVisiteur.Model.View.Visiteur.ReportView +-down- LPY.appliVisiteur.Model.View.Visiteur.ReportView.RapportVisite
+  LPY.appliVisiteur.Model.View.Visiteur.SectorView +-down- LPY.appliVisiteur.Model.View.Visiteur.SectorView.Secteur
+  LPY.appliVisiteur.Model.View.Visiteur.UserView +-down- LPY.appliVisiteur.Model.View.Visiteur.UserView.User
+  LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView +-down- LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView.PeriodeTravaille
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
