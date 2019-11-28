@@ -1,6 +1,5 @@
 package LPY.appliVisiteur.Model.Entity;
 
-import LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView;
 import LPY.appliVisiteur.Model.View.Visiteur.DrugView;
 import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -15,11 +14,11 @@ public class Drug {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, DrugView.Medicament.class, DrugPresentationView.PresentationMedicament.class})
+    @JsonView({ReportView.RapportVisite.class, DrugView.Medicament.class})
     private long id;
 
     @Column(name = "name", length = 50)
-    @JsonView({ReportView.RapportVisite.class, DrugView.Medicament.class, DrugPresentationView.PresentationMedicament.class})
+    @JsonView({ReportView.RapportVisite.class, DrugView.Medicament.class})
     private String name;
 
     @Column(name = "description", length = 100)

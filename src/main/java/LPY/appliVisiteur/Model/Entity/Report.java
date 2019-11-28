@@ -1,6 +1,5 @@
 package LPY.appliVisiteur.Model.Entity;
 
-import LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView;
 import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -14,7 +13,7 @@ public class Report {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class, DrugPresentationView.PresentationMedicament.class})
+    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
     private long id;
 
     @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
