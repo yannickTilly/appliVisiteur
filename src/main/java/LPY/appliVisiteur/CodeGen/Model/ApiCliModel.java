@@ -21,19 +21,8 @@ public class ApiCliModel {
     private List<RouteModel> routeModels;
     private String name;
 
-    public void importFile(File file)
-    {
-        try {
-            CompilationUnit compilationUnit = StaticJavaParser.parse(file);
-            List<MethodDeclaration> requestFunctions = ApiCliReader.getRequestFunction(compilationUnit);
-//            for (requestFunction : requestFunctions)
-//            {
-////                ApiCliReader.getRequestMappingAnnotation();
-//            }
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    public ApiCliModel() {
+        this.routeModels = new ArrayList<>();
     }
 
     public ApiCliModel addRouteModel(RouteModel routeModel) {
