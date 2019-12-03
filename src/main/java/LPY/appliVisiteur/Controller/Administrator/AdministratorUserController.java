@@ -38,6 +38,7 @@ public class AdministratorUserController extends BaseController
 
         User user = this.getUser();
 
+
         if (visiteurBody.getVille() != null)
         {
             user.setVille(visiteurBody.getVille());
