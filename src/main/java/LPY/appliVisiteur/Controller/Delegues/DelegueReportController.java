@@ -1,6 +1,6 @@
 package LPY.appliVisiteur.Controller.Delegues;
 
-import LPY.appliVisiteur.Controller.Visiteur.VisitorReportController;
+import LPY.appliVisiteur.Controller.Administrator.AdministratorReportController;
 import LPY.appliVisiteur.Model.Entity.Report;
 import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
@@ -20,7 +20,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("delegues")
-public class DelegueReportController extends VisitorReportController {
+public class DelegueReportController extends AdministratorReportController {
     @Autowired
     private UserRepository userRepository;
 

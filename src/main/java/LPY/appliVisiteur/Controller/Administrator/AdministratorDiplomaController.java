@@ -1,4 +1,4 @@
-package LPY.appliVisiteur.Controller.Visiteur;
+package LPY.appliVisiteur.Controller.Administrator;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.Diploma;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("visitor")
-public class VisitorDiplomaController extends BaseController {
+public class AdministratorDiplomaController extends BaseController {
     @Autowired
     private DiplomaRepository diplomaRepository;
 

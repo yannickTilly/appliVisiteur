@@ -1,4 +1,4 @@
-package LPY.appliVisiteur.Controller.Visiteur;
+package LPY.appliVisiteur.Controller.Administrator;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.User;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("visitor")
-public class VisitorUserController extends BaseController
+public class AdministratorUserController extends BaseController
 {
     @Autowired
     private UserRepository userRepository;
@@ -34,9 +34,10 @@ public class VisitorUserController extends BaseController
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
     @JsonView(UserView.User.class)
-    public User postVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
+    public User patchVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
 
         User user = this.getUser();
+
         if (visiteurBody.getVille() != null)
         {
             user.setVille(visiteurBody.getVille());

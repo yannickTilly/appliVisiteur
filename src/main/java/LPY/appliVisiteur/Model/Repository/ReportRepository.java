@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface ReportRepository extends CrudRepository<Report, Long> {
-    Optional<Report> findById(Long id);
+    Report findOneById(Long id);
     Collection<Report> findByUser(User user);
     Report findOneByUserAndId(User user, long id);
 

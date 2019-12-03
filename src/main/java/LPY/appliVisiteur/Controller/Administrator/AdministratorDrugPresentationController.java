@@ -1,4 +1,4 @@
-package LPY.appliVisiteur.Controller.Visiteur;
+package LPY.appliVisiteur.Controller.Administrator;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.Drug;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("visitor")
-public class VisitorDrugPresentationController extends BaseController {
+public class AdministratorDrugPresentationController extends BaseController {
     @Autowired
     private ReportRepository reportRepository;
 
@@ -34,7 +34,7 @@ public class VisitorDrugPresentationController extends BaseController {
 
     @RequestMapping(value = "drugPresentation", method = RequestMethod.POST)
     @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public Report patchDrug(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
+    public Report postDrug(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
         Report report = reportRepository.findOneByUserAndId(this.getUser(),presentationMedicamentBody.getIdRapportVisite());

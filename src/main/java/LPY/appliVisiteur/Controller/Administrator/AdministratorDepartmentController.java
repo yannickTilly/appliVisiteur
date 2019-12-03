@@ -1,4 +1,4 @@
-package LPY.appliVisiteur.Controller.Visiteur;
+package LPY.appliVisiteur.Controller.Administrator;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.Department;
@@ -17,7 +17,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
-public class VisitorDepartmentController extends BaseController {
+public class AdministratorDepartmentController extends BaseController {
     @Autowired
     private DepartmentRepository departmentRepository;
 
