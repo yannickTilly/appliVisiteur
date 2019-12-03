@@ -4,6 +4,7 @@ import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.Sector;
 import LPY.appliVisiteur.Model.Repository.SecteurRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.SectorView;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +19,15 @@ public class VisitorSectorController extends BaseController {
     private SecteurRepository secteurRepository;
 
     @RequestMapping(value = "sector/{id}", method = RequestMethod.GET)
-    public String getSector(@PathVariable("id") Long id) throws JsonProcessingException {
+    @JsonView(SectorView.Secteur.class)
+    public Sector getSector(@PathVariable("id") Long id) throws JsonProcessingException {
         Sector sector = secteurRepository.findOneById(id);
-        return createResponse(sector, SectorView.Secteur.class);
+        return sector;
     }
 
     @RequestMapping(value = "sectors", method = RequestMethod.GET)
-    public String getSectors() throws JsonProcessingException {
-        return createResponse(secteurRepository.findAll(), SectorView.Secteur.class);
+    @JsonView(SectorView.Secteur.class)
+    public Iterable<Sector> getSectors() throws JsonProcessingException {
+        return secteurRepository.findAll();
     }
 }

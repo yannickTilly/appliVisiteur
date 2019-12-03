@@ -7,6 +7,7 @@ import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.WorkedTimeRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,8 @@ public class VisitorWorkedTimeController extends BaseController {
     private WorkedTimeRepository workedTimeRepository;
 
     @RequestMapping(value = "workedTime/{id}", method = RequestMethod.GET)
-    public String getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
+    @JsonView(WorkedTimeView.PeriodeTravaille.class)
+    public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
         WorkedTime workedTime = workedTimeRepository.findByIdAndUser(id, this.getUser());
         if (workedTime == null)
         {
@@ -31,14 +33,15 @@ public class VisitorWorkedTimeController extends BaseController {
         }
         else
         {
-            return this.createResponse(workedTime, WorkedTimeView.PeriodeTravaille.class);
+            return workedTime;
         }
     }
 
     @RequestMapping(value = "workedTimes", method = RequestMethod.GET)
-    public String getWorkedTimes() throws UserNotFoundException, JsonProcessingException {
+    @JsonView(WorkedTimeView.PeriodeTravaille.class)
+    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException, JsonProcessingException {
         User user = this.getUser();
         Collection<WorkedTime> workedTimes = workedTimeRepository.findByUser(user);
-        return this.createResponse(workedTimes, WorkedTimeView.PeriodeTravaille.class);
+        return workedTimes;
     }
 }

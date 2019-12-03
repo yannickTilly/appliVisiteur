@@ -7,6 +7,7 @@ import LPY.appliVisiteur.Model.Repository.ReportRepository;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import LPY.appliVisiteur.Model.RequestBody.Visiteur.VisiteurBody;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +27,14 @@ public class VisitorUserController extends BaseController
     private ReportRepository reportRepository;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String getVisitor() throws UserNotFoundException, JsonProcessingException {
-        return this.createResponse(this.getUser(), UserView.User.class);
+    @JsonView(UserView.User.class)
+    public User getVisitor() throws UserNotFoundException, JsonProcessingException {
+        return this.getUser();
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
-    public String postVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
+    @JsonView(UserView.User.class)
+    public User postVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
 
         User user = this.getUser();
         if (visiteurBody.getVille() != null)
@@ -43,6 +46,6 @@ public class VisitorUserController extends BaseController
             user.setVille(visiteurBody.getCodePostal());
         }
         userRepository.save(user);
-        return this.createResponse(this.getUser(), UserView.User.class);
+        return this.getUser();
     }
 }

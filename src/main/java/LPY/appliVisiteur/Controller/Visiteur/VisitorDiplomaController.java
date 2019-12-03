@@ -5,6 +5,7 @@ import LPY.appliVisiteur.Model.Entity.Diploma;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DiplomaRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.DiplomaView;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +20,19 @@ public class VisitorDiplomaController extends BaseController {
     private DiplomaRepository diplomaRepository;
 
     @RequestMapping(value = "diploma/{id}", method = RequestMethod.GET)
-    public String getDiploma(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    @JsonView(DiplomaView.Diplome.class)
+    public Diploma getDiploma(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Diploma diploma = diplomaRepository.findOneById(id);
         if (diploma == null)
         {
             throw new RessouceNotFoundExeption("diploma not found");
         }
-        return this.createResponse(diplomaRepository.findOneById(id), DiplomaView.Diplome.class);
+        return diplomaRepository.findOneById(id);
     }
 
     @RequestMapping(value = "diplomas", method = RequestMethod.GET)
-    public String getDiplomas() throws JsonProcessingException {
-        return this.createResponse(diplomaRepository.findAll(), DiplomaView.Diplome.class);
+    @JsonView(DiplomaView.Diplome.class)
+    public Iterable<Diploma> getDiplomas() throws JsonProcessingException {
+        return diplomaRepository.findAll();
     }
 }

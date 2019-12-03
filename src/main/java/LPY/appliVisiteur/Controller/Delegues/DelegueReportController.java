@@ -7,6 +7,7 @@ import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,31 +26,33 @@ public class DelegueReportController extends VisitorReportController {
 
     @Override
     @RequestMapping(value = "report/{id}", method = RequestMethod.GET)
-    public String getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+    @JsonView(ReportView.DelegueRapportVisite.class)
+    public Report getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
         Report report = reportRepository.findOneByIdAndRegion(id, this.getUser().getRegion());
 
         if (report == null) {
             throw new RessouceNotFoundExeption("No results found");
         } else {
-            return this.createResponse(report, ReportView.RapportVisite.class);
+            return report;
         }
     }
 
     @Override
     @RequestMapping(value = "reports", method = RequestMethod.GET)
-    public String getReports() throws UserNotFoundException, JsonProcessingException {
+    @JsonView(ReportView.DelegueRapportVisite.class)
+    public Collection<Report> getReports() throws UserNotFoundException, JsonProcessingException {
         Collection<Report> reports = this.getUser().getRegion().getReports();
-        return this.createResponse(reports, ReportView.DelegueRapportVisite.class);
+        return reports;
     }
 
     @RequestMapping(value = "user/{userId}/reports", method = RequestMethod.GET)
-    public String getReports(@PathVariable("userId") Long id) throws UserNotFoundException, JsonProcessingException {
+    @JsonView(ReportView.DelegueRapportVisite.class)
+    public Collection<Report> getReports(@PathVariable("userId") Long id) throws UserNotFoundException, JsonProcessingException {
         User user = userRepository.findOneById(id);
         Collection<Report> reports = reportRepository.findByUserAndRegion(user, this.getUser().getRegion());
-
         if (user != null)
         {
-            return this.createResponse(reports, ReportView.RapportVisite.class);
+            return reports;
         }else {
             throw new UserNotFoundException("No user found with this id");
         }

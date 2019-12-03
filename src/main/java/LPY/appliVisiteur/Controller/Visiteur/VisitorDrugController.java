@@ -5,6 +5,7 @@ import LPY.appliVisiteur.Model.Entity.Drug;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DrugRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.DrugView;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +20,19 @@ public class VisitorDrugController extends BaseController {
     private DrugRepository drugRepository;
 
     @RequestMapping(value = "drug/{id}", method = RequestMethod.GET)
-    public String getDepartment(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    @JsonView(DrugView.Medicament.class)
+    public Drug getDepartment(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Drug drug = drugRepository.findOneById(id);
         if (drug == null)
         {
             throw new RessouceNotFoundExeption("drug not found");
         }
-        return createResponse(drug, DrugView.Medicament.class);
+        return drug;
     }
 
     @RequestMapping(value = "drugs", method = RequestMethod.GET)
-    public String getDrugs() throws JsonProcessingException {
-        return createResponse(drugRepository.findAll(), DrugView.Medicament.class);
+    @JsonView(DrugView.Medicament.class)
+    public Iterable<Drug> getDrugs() throws JsonProcessingException {
+        return drugRepository.findAll();
     }
 }
