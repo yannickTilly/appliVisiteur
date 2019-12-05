@@ -18,24 +18,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApiCliModel {
-    private List<RouteModel> routeModels;
+    private List<RestControllerModel> routeModels;
     private String name;
 
     public ApiCliModel() {
         this.routeModels = new ArrayList<>();
     }
 
-    public ApiCliModel addRouteModel(RouteModel routeModel) {
-        routeModels.add(routeModel);
-        return this;
-    }
-
-    public List<RouteModel> getRouteModels() {
+    public List<RestControllerModel> getRouteModels() {
         return routeModels;
     }
 
-    public ApiCliModel setRouteModels(List<RouteModel> routeModels) {
-        this.routeModels = routeModels;
+    public ApiCliModel addRestControllerModel(RestControllerModel restController)
+    {
+        routeModels.add(restController);
         return this;
     }
 

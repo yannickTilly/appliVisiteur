@@ -71,11 +71,7 @@ public class RequestMappingFunction{
 
     public ResponseBody getResponseBody()
     {
-        ReturnStmt returnStmt = methodDeclaration.findAll(BlockStmt.class).get(0)
-                .findAll(ReturnStmt.class).get(0);
-        MethodCallExpr methodCallExpr = returnStmt.findFirst(MethodCallExpr.class).get();
-        NameExpr nameExpr = methodCallExpr.findFirst(NameExpr.class).get();
-        return new ResponseBody(upperCaseFirstLetter(nameExpr.toString()));
+        return new ResponseBody(methodDeclaration.getType().asClassOrInterfaceType().getName().getIdentifier());
     }
 
     public String getLink()

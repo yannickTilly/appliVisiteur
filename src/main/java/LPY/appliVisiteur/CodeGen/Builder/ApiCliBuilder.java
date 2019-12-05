@@ -1,5 +1,6 @@
 package LPY.appliVisiteur.CodeGen.Builder;
 
+import LPY.appliVisiteur.CodeGen.Model.RestController;
 import LPY.appliVisiteur.CodeGen.Model.RouteModel;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.NodeList;
@@ -12,6 +13,8 @@ import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ExpressionStmt;
 import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
+
+import java.util.List;
 
 public class ApiCliBuilder{
 
@@ -126,4 +129,6 @@ public class ApiCliBuilder{
     {
         return Character.toLowerCase(name.charAt(0)) + name.substring(1);
     }
+
+
 }

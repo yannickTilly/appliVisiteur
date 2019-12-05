@@ -1,5 +1,6 @@
 package LPY.appliVisiteur.CodeGen.Controller;
 
+import LPY.appliVisiteur.CodeGen.Builder.ApiCliBuilder;
 import LPY.appliVisiteur.CodeGen.Model.*;
 import LPY.appliVisiteur.CodeGen.Reader.ApiCliReader;
 
@@ -15,13 +16,14 @@ public class ApiCliController {
     public static void main(String[] args)
     {
         ApiCliController apiCliController = new ApiCliController();
-        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Visiteur/VisitorReportController.java"));
-        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Delegues/DelegueDepartmentController.java"));
-        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Visiteur/VisitorRegionController.java"));
-        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Delegues/DelegueDiplomaController.java"));
-        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Visiteur/VisitorDrugController.java"));
-        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Delegues/DelegueSectorController.java"));
+        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorReportController.java"));
+        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorDepartmentController.java"));
+        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorRegionController.java"));
+        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorDiplomaController.java"));
+        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorDrugController.java"));
+        apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorSectorController.java"));
         apiCliController.generateModel();
+        String a = "a";
     }
     public ApiCliController()
     {
@@ -33,11 +35,12 @@ public class ApiCliController {
     {
         for(String suffixe : apiCliReader.getSuffixes())
         {
+            ApiCliModel apiCliModel = new ApiCliModel();
+            apiCliModel.setName(suffixe);
+            apiCliModels.add(apiCliModel);
             for (RestController restController : apiCliReader.getRestControllerBySuffixe(suffixe))
             {
-                ApiCliModel apiCliModel = new ApiCliModel();
-                apiCliModel.setName(restController.getSuffixe() + restController.getName());
-                apiCliModels.add(apiCliModel);
+                RestControllerModel restControllerModel = new RestControllerModel(restController.getName());
                 for (RequestMappingFunction requestMappingFunction : restController.getRequestMappingFunctions())
                 {
                     RouteModel routeModel = new RouteModel();
@@ -50,9 +53,20 @@ public class ApiCliController {
                         routeModel.setRequestBody(requestBody.getClassName());
                     }
                     routeModel.setResponseBody(requestMappingFunction.getResponseBody().getClassName());
-                    apiCliModel.addRouteModel(routeModel);
+                    restControllerModel.addRouteModel(routeModel);
+                    routeModel.getIdNames();
                 }
+                apiCliModel.addRestControllerModel(restControllerModel);
             }
+        }
+    }
+
+    public void generate()
+    {
+        for (ApiCliModel apiCliModel: apiCliModels)
+        {
+            ApiCliBuilder apiCliBuilder = new ApiCliBuilder(apiCliModel.getName());
+            apiCliBuilder.addRoutes(apiCliModels);
         }
     }
 

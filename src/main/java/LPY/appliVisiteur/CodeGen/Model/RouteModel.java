@@ -1,5 +1,10 @@
 package LPY.appliVisiteur.CodeGen.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RouteModel {
     private String method;
     private String requestBody;
@@ -14,6 +19,19 @@ public class RouteModel {
     public RouteModel setName(String name) {
         this.name = name;
         return this;
+    }
+
+    public List<String> getIdNames()
+    {
+        Pattern pattern;
+        pattern = Pattern.compile("\\{.*\\}");
+        Matcher matcher = pattern.matcher(link);
+        List<String> idNames = new ArrayList<>();
+        while (matcher.find())
+        {
+            idNames.add(matcher.group().replace("{","").replace("}",""));
+        }
+        return idNames;
     }
 
     public String getLink() {
