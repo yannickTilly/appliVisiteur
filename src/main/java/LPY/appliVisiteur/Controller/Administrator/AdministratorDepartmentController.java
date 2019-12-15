@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("visitor")
+@RequestMapping("administrator")
 public class AdministratorDepartmentController extends BaseController {
     @Autowired
     private DepartmentRepository departmentRepository;

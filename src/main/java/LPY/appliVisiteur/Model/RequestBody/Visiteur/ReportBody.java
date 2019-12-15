@@ -2,7 +2,7 @@ package LPY.appliVisiteur.Model.RequestBody.Visiteur;
 
 import java.util.Collection;
 
-public class RapportVisiteBody {
+public class ReportBody {
     private Collection<Long> MedicamentId;
     private Long praticienId;
     private String note;
@@ -11,7 +11,7 @@ public class RapportVisiteBody {
         return MedicamentId;
     }
 
-    public RapportVisiteBody setMedicamentId(Collection<Long> medicamentId) {
+    public ReportBody setMedicamentId(Collection<Long> medicamentId) {
         MedicamentId = medicamentId;
         return this;
     }
@@ -20,7 +20,7 @@ public class RapportVisiteBody {
         return praticienId;
     }
 
-    public RapportVisiteBody setPraticienId(Long praticienId) {
+    public ReportBody setPraticienId(Long praticienId) {
         this.praticienId = praticienId;
         return this;
     }
@@ -29,7 +29,7 @@ public class RapportVisiteBody {
         return note;
     }
 
-    public RapportVisiteBody setNote(String note) {
+    public ReportBody setNote(String note) {
         this.note = note;
         return this;
     }

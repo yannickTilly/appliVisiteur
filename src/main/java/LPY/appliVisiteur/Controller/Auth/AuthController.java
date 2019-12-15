@@ -2,8 +2,10 @@ package LPY.appliVisiteur.Controller.Auth;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
 import LPY.appliVisiteur.Model.RequestBody.Credential;
+import LPY.appliVisiteur.Model.ResponseBody.AuthResponse;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ public class AuthController extends BaseController {
     private UserRepository userRepository;
 
     @RequestMapping(value = "/token", method = RequestMethod.POST)
-    public String getToken(@RequestBody Credential credential) {
+    public AuthResponse getToken(@RequestBody Credential credential) throws UserNotFoundException {
         User user = userRepository.findByLogin(credential.getLogin());
         if(user != null)
         {
@@ -25,9 +27,10 @@ public class AuthController extends BaseController {
                     .withIssuer("auth0")
                     .withClaim("id", user.getId())
                     .sign(algorithm);
-            return token;
+            AuthResponse authResponse = new AuthResponse();
+            authResponse.setToken(token.toString());
+            return authResponse;
         }
-
-        return "mauvais login";
+        throw new UserNotFoundException("login non trouvé");
     }
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("delegues")
+@RequestMapping("delegue")
 public class DelegueReportController extends AdministratorReportController {
     @Autowired
     private UserRepository userRepository;
