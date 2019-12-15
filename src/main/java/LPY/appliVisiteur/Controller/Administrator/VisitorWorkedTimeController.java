@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("visitor")
+@RequestMapping("administrator")
 public class VisitorWorkedTimeController extends BaseController {
     @Autowired
     private WorkedTimeRepository workedTimeRepository;

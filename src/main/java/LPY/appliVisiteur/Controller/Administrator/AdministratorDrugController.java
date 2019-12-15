@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("visitor")
+@RequestMapping("administrator")
 public class AdministratorDrugController extends BaseController {
     @Autowired
     private DrugRepository drugRepository;

@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("visitor")
+@RequestMapping("administrator")
 public class AdministratorDrugPresentationController extends BaseController {
     @Autowired
     private ReportRepository reportRepository;
