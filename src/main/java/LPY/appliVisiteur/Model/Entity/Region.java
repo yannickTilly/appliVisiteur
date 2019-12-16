@@ -1,5 +1,6 @@
 package LPY.appliVisiteur.Model.Entity;
 
+import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView;
 import LPY.appliVisiteur.Model.View.Visiteur.RegionView;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
@@ -14,22 +15,24 @@ public class Region {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
+    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.RapportVisite.class, ReportView.RapportVisite.class})
     private long id;
 
     @Column(name = "code", length = 10)
-    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
+    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.RapportVisite.class, ReportView.RapportVisite.class})
+
     private String code;
 
     @Column(name = "name", length = 30)
-    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class})
+    @JsonView({ReportView.RapportVisite.class, WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.RapportVisite.class})
+
     private String name;
 
     @OneToMany(mappedBy = "region")
     private Collection<WorkedTime> workedTimes;
 
     @ManyToOne
-    @JsonView(UserView.User.class)
+    @JsonView({UserView.User.class, ReportView.RapportVisite.class})
     private Sector sector;
 
     @OneToMany(mappedBy = "region")

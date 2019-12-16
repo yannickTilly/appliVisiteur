@@ -26,6 +26,7 @@ public class Pratitionner {
     private Collection<Diploma> diplomas;
 
     @Column(name = "first_name", length = 50)
+    @JsonView({ReportView.RapportVisite.class, PratitionnerView.Praticien.class})
     private String first_name;
 
     public long getId() {
