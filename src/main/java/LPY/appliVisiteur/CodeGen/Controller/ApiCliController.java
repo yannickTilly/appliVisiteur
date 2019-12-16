@@ -66,7 +66,7 @@ public class ApiCliController {
         for (ApiCliModel apiCliModel: apiCliModels)
         {
             ApiCliBuilder apiCliBuilder = new ApiCliBuilder(apiCliModel.getName());
-            apiCliBuilder.addRoutes(apiCliModels);
+//            apiCliBuilder.addRoutes(apiCliModels);
         }
     }
 

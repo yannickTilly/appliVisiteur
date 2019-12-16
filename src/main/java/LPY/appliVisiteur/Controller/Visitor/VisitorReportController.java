@@ -32,6 +32,12 @@ public class VisitorReportController extends BaseController {
         return administratorReportController.getReport(reportId);
     }
 
+    @RequestMapping(value = "reports", method = RequestMethod.GET)
+    @JsonView(ReportView.RapportVisite.class)
+    public Collection<Report> getReports() throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+        return this.getUser().getReports();
+    }
+
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.PATCH)
     @JsonView(ReportView.RapportVisite.class)
     public Report patchReport(@PathVariable long reportId, @RequestBody ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
