@@ -26,6 +26,24 @@ public class DrugPresentation {
     @JsonView(DrugPresentationView.PresentationMedicament.class)
     private Report report;
 
+    public long getId() {
+        return id;
+    }
+
+    public DrugPresentation setId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public DrugPresentation setNote(String note) {
+        this.note = note;
+        return this;
+    }
+
     public Drug getDrug() {
         return drug;
     }

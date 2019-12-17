@@ -36,10 +36,6 @@ public class Report {
     @JsonView({ReportView.RapportVisite.class})
     private Region region;
 
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
-    @Column(name = "sample_number")
-    private int sampleNumber;
-
 
     public String getDescription() {
         return description;
@@ -96,15 +92,6 @@ public class Report {
 
     public Report setRegion(Region region) {
         this.region = region;
-        return this;
-    }
-
-    public int getSampleNumber() {
-        return sampleNumber;
-    }
-
-    public Report setSampleNumber(int sampleNumber) {
-        this.sampleNumber = sampleNumber;
         return this;
     }
 }
