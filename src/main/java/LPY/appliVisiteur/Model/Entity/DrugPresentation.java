@@ -15,6 +15,9 @@ public class DrugPresentation {
     @JsonView({ReportView.RapportVisite.class, DrugPresentationView.PresentationMedicament.class})
     private long id;
 
+    @JsonView(DrugPresentationView.PresentationMedicament.class)
+    private String note;
+
     @ManyToOne
     @JsonView({ReportView.RapportVisite.class, DrugPresentationView.PresentationMedicament.class})
     private Drug drug;
