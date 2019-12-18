@@ -1,12 +1,10 @@
 package LPY.appliVisiteur.CodeGen.Builder;
 
-import LPY.appliVisiteur.CodeGen.Model.RestController;
 import LPY.appliVisiteur.CodeGen.Model.RouteModel;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
-import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.stmt.BlockStmt;
@@ -57,6 +55,11 @@ public class ApiCliBuilder{
         {
             routeFunction.addAndGetParameter(routeModel.getRequestBody(), lowerFirstCase(routeModel.getRequestBody()));
         }
+//        block.addStatement("try {" + getHttpRequestDeclaration(routeModel).toString() + "} catch (JsonProcessingException e) {\n" +
+//                "            throw new ClientError(e.toString());\n" +
+//                "        } catch (IOException | InterruptedException e) {\n" +
+//                "            throw new ServerError(e.toString());\n" +
+//                "        }");
         block.addStatement(getHttpRequestDeclaration(routeModel));
         block.addStatement(getHttpResponseDeclaration(routeModel));
         block.addStatement(getReturn(routeModel));
