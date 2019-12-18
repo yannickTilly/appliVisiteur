@@ -2,6 +2,7 @@ package LPY.appliVisiteur.Controller.Administrator;
 
 import LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.Drug;
+import LPY.appliVisiteur.Model.Entity.Report;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DrugRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.DrugView;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("administrator")
@@ -32,7 +35,7 @@ public class AdministratorDrugController extends BaseController {
 
     @RequestMapping(value = "drugs", method = RequestMethod.GET)
     @JsonView(DrugView.Medicament.class)
-    public Iterable<Drug> getDrugs() throws JsonProcessingException {
-        return drugRepository.findAll();
+    public Collection<Drug> getDrugs() throws JsonProcessingException {
+        return (Collection<Drug>) drugRepository.findAll();
     }
 }

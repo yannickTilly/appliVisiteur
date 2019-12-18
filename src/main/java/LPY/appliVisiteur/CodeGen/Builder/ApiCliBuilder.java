@@ -19,11 +19,11 @@ public class ApiCliBuilder{
     public static void main(String[] args)
     {
         RouteModel routeModel = new RouteModel();
-        routeModel.setLink("/test/link");
+        routeModel.setLink("/report");
         routeModel.setMethod("POST");
-        routeModel.setName("testName");
-        routeModel.setResponseBody("Drug");
-        routeModel.setRequestBody("DrugBody");
+        routeModel.setName("postReport");
+        routeModel.setResponseBody("Report");
+        routeModel.setRequestBody("ReportBody");
         ApiCliBuilder apiCliBuilder = new ApiCliBuilder("testname");
         apiCliBuilder.addRoute(routeModel);
         apiCliBuilder.getApiClassStr();

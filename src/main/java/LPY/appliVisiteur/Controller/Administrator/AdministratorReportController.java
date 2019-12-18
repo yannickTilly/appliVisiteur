@@ -75,8 +75,9 @@ public class AdministratorReportController extends BaseController {
     public Report postReport(@RequestBody ReportBody reportBody, @PathVariable("idUser") long idUser) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
         User user = userRepository.findOneById(idUser);
         Report report = new Report();
+
         Collection<DrugPresentation> drugPresentations = new ArrayList<DrugPresentation>();
-        for (Long medicamentId : reportBody.getMedicamentId()) {
+        for (Long medicamentId : reportBody.getMedicamentIds()) {
             Drug drug = drugRepository.findOneById(medicamentId);
             if (drug != null)
             {
@@ -101,6 +102,7 @@ public class AdministratorReportController extends BaseController {
         }
 
         report.setUser(user);
+        report.setRegion(user.getRegion());
         report.setDrugPresentations(drugPresentations);
         report.setDescription(reportBody.getNote());
         reportRepository.save(report);

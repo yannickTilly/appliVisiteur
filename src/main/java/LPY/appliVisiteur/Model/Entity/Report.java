@@ -21,7 +21,7 @@ public class Report {
     private String description;
 
     @ManyToOne
-    @JsonView({ReportView.DelegueRapportVisite.class, })
+    @JsonView({ReportView.DelegueRapportVisite.class})
     private User user;
 
     @OneToMany(mappedBy = "report")
@@ -33,11 +33,8 @@ public class Report {
     private Pratitionner pratitionner;
 
     @ManyToOne
+    @JsonView({ReportView.RapportVisite.class})
     private Region region;
-
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
-    @Column(name = "sample_number")
-    private int sampleNumber;
 
 
     public String getDescription() {
@@ -95,15 +92,6 @@ public class Report {
 
     public Report setRegion(Region region) {
         this.region = region;
-        return this;
-    }
-
-    public int getSampleNumber() {
-        return sampleNumber;
-    }
-
-    public Report setSampleNumber(int sampleNumber) {
-        this.sampleNumber = sampleNumber;
         return this;
     }
 }

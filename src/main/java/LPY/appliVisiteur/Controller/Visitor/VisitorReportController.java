@@ -23,6 +23,7 @@ public class VisitorReportController extends BaseController {
     @RequestMapping(value = "report", method = RequestMethod.POST)
     @JsonView(ReportView.RapportVisite.class)
     public Report postReport(@RequestBody ReportBody reportBody) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
+
         return administratorReportController.postReport(reportBody, this.getUser().getId());
     }
 
