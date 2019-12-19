@@ -69,4 +69,17 @@ public class RouteModel {
         this.responseBody = responseBody;
         return this;
     }
+
+    public List<String> getPathVariables()
+    {
+        List<String> pathVariables = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{.*}");
+        Matcher matcher = pattern.matcher(getLink());
+        while(matcher.find()) {
+            pathVariables.add(matcher.group()
+                    .replace("{","")
+                    .replace("}", ""));
+        }
+        return pathVariables;
+    }
 }

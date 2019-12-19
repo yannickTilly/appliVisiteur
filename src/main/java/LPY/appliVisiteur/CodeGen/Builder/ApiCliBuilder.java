@@ -53,18 +53,23 @@ public class ApiCliBuilder{
         FieldAccessExpr field = new FieldAccessExpr(clazz, "out");
         MethodCallExpr call = new MethodCallExpr(field, "println");
         call.addArgument(new StringLiteralExpr("Hello World!"));
-        if(routeModel.getMethod().equals("POST"))
+        if(routeModel.getMethod().equals("POST") || routeModel.getMethod().equals("PATCH"))
         {
             routeFunction.addAndGetParameter(routeModel.getRequestBody(), lowerFirstCase(routeModel.getRequestBody()));
         }
-//        block.addStatement("try {" + getHttpRequestDeclaration(routeModel).toString() + "} catch (JsonProcessingException e) {\n" +
-//                "            throw new ClientError(e.toString());\n" +
-//                "        } catch (IOException | InterruptedException e) {\n" +
-//                "            throw new ServerError(e.toString());\n" +
-//                "        }");
-        block.addStatement(getHttpRequestDeclaration(routeModel));
-        block.addStatement(getHttpResponseDeclaration(routeModel));
-        block.addStatement(getReturn(routeModel));
+        for(String pathVariable : routeModel.getPathVariables())
+        {
+            routeFunction.addAndGetParameter("long", String.valueOf(pathVariable));
+        }
+        routeFunction.addAndGetParameter(String.class, "token");
+        block.addStatement("try {" + getHttpRequestDeclaration(routeModel).toString() + "\n" +
+                getHttpResponseDeclaration(routeModel).toString() + "\n" +
+                getReturn(routeModel).toString() + "\n" +
+                "} catch (JsonProcessingException e) {\n" +
+                "            throw new ClientError(e.toString());\n" +
+                "        } catch (IOException | InterruptedException e) {\n" +
+                "            throw new ServerError(e.toString());\n" +
+                "        }");
     }
 
     private String getHttpRequestInitializer(RouteModel routeModel)
@@ -84,6 +89,10 @@ public class ApiCliBuilder{
                     .replace("{body}",
                             "HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(" +
                                     lowerFirstCase(routeModel.getRequestBody()) + "))");
+        }
+        else
+        {
+            initializer = initializer.replace("{body}","");
         }
         return initializer;
     }

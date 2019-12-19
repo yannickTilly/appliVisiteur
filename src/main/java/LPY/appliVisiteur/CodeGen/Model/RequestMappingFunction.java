@@ -8,7 +8,10 @@ import com.github.javaparser.ast.expr.NormalAnnotationExpr;
 import com.github.javaparser.ast.stmt.BlockStmt;
 import com.github.javaparser.ast.stmt.ReturnStmt;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RequestMappingFunction{
 
@@ -92,5 +95,18 @@ public class RequestMappingFunction{
     public String upperCaseFirstLetter(String str)
     {
         return Character.toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+
+    public List<String> getPathVariables()
+    {
+        List<String> pathVariables = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\{.*}");
+        Matcher matcher = pattern.matcher(getLink());
+        while(matcher.find()) {
+            pathVariables.add(matcher.group()
+                    .replace("{","")
+                    .replace("{", ""));
+        }
+        return pathVariables;
     }
 }
