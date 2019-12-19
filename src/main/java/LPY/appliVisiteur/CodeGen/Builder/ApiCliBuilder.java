@@ -13,6 +13,8 @@ import com.github.javaparser.ast.stmt.ReturnStmt;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ApiCliBuilder{
 
@@ -44,9 +46,9 @@ public class ApiCliBuilder{
     public void addRoute(RouteModel routeModel)
     {
         MethodDeclaration routeFunction = apiClass.addMethod(routeModel.getName());
+        routeFunction.setType(routeModel.getResponseBody());
         BlockStmt block = new BlockStmt();
         routeFunction.setBody(block);
-        // add a statement do the method body
         NameExpr clazz = new NameExpr("System");
         FieldAccessExpr field = new FieldAccessExpr(clazz, "out");
         MethodCallExpr call = new MethodCallExpr(field, "println");
@@ -80,8 +82,8 @@ public class ApiCliBuilder{
         {
             initializer = initializer
                     .replace("{body}",
-                            "HttpRequest.BodyPublishers.ofString(" +
-                                    lowerFirstCase(routeModel.getRequestBody()) + ")");
+                            "HttpRequest.BodyPublishers.ofString(objectMapper.writeValueAsString(" +
+                                    lowerFirstCase(routeModel.getRequestBody()) + "))");
         }
         return initializer;
     }
@@ -122,8 +124,17 @@ public class ApiCliBuilder{
     {
         ReturnStmt returnStmt = new ReturnStmt();
         NameExpr returnNameExpr = new NameExpr();
+        Pattern pattern = Pattern.compile("<.*>");
+        Matcher matcher = pattern.matcher(routeModel.getResponseBody());
+        String objectMapperClassParam = routeModel.getResponseBody();
+        while(matcher.find()) {
+            objectMapperClassParam = matcher.group()
+                    .replace("<","")
+                    .replace(">","")
+                    + "[]";
+        }
         String returnStr = "objectMapper.readValue(response.body(), {className}.class)";
-        returnNameExpr.setName(returnStr.replace("{className}", routeModel.getResponseBody()));
+        returnNameExpr.setName(returnStr.replace("{className}", objectMapperClassParam));
         returnStmt.setExpression(returnNameExpr);
         return returnStmt;
     }

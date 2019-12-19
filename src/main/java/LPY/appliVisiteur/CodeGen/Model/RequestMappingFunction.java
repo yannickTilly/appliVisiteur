@@ -71,7 +71,7 @@ public class RequestMappingFunction{
 
     public ResponseBody getResponseBody()
     {
-        return new ResponseBody(methodDeclaration.getType().asClassOrInterfaceType().getName().getIdentifier());
+        return new ResponseBody(methodDeclaration.getType().toString());
     }
 
     public String getLink()
