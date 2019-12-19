@@ -134,4 +134,10 @@ public class ApiCliBuilder{
     }
 
 
+    public void addRoutes(List<RouteModel> routeModels) {
+        for (RouteModel routeModel: routeModels)
+        {
+            addRoute(routeModel);
+        }
+    }
 }

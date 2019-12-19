@@ -79,7 +79,12 @@ public class ApiCliReader {
         List<String> suffixes = new ArrayList<>();
         for (RestController restController : getRestController())
         {
-            suffixes.add(restController.getSuffixe());
+            boolean newSuffixe = true;
+            for (String suffixe: suffixes)
+            {
+                if (suffixe.equals(restController.getSuffixe())) newSuffixe = false;
+            }
+            if (newSuffixe) suffixes.add(restController.getSuffixe());
         }
         return suffixes;
     }

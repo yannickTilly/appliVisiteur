@@ -5,6 +5,8 @@ import LPY.appliVisiteur.CodeGen.Model.*;
 import LPY.appliVisiteur.CodeGen.Reader.ApiCliReader;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,7 @@ public class ApiCliController {
         apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorDiplomaController.java"));
         apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorDrugController.java"));
         apiCliController.addFile(new File("./src/main/java/LPY/appliVisiteur/Controller/Administrator/AdministratorSectorController.java"));
-        apiCliController.generateModel();
-        String a = "a";
+        apiCliController.generate();
     }
     public ApiCliController()
     {
@@ -63,10 +64,23 @@ public class ApiCliController {
 
     public void generate()
     {
+        generateModel();
         for (ApiCliModel apiCliModel: apiCliModels)
         {
             ApiCliBuilder apiCliBuilder = new ApiCliBuilder(apiCliModel.getName());
-//            apiCliBuilder.addRoutes(apiCliModels);
+            for(RestControllerModel restControllerModel : apiCliModel.getRestControllerModels())
+            {
+                apiCliBuilder.addRoutes(restControllerModel.getRouteModels());
+            }
+            File file = new File("./output/codegen/apiclient/" + apiCliModel.getName() + ".java");
+            try {
+                file.createNewFile();
+                FileWriter writer = new FileWriter(file);
+                writer.write(apiCliBuilder.getApiClassStr());
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

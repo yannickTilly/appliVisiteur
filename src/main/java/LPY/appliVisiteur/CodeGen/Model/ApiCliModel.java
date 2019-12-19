@@ -25,7 +25,7 @@ public class ApiCliModel {
         this.routeModels = new ArrayList<>();
     }
 
-    public List<RestControllerModel> getRouteModels() {
+    public List<RestControllerModel> getRestControllerModels() {
         return routeModels;
     }
 
