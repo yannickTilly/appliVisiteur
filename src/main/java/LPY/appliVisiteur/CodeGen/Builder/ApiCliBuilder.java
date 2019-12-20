@@ -81,7 +81,12 @@ public class ApiCliBuilder{
                 "                .{verb}({body})\n" +
                 "                .uri(URI.create(endPointUrl + \"{link}\"))\n" +
                 "                .build()";
-        initializer = initializer.replace("{link}", routeModel.getLink());
+        String link = routeModel.getLink();
+        for(String pathVariable : routeModel.getPathVariables())
+        {
+            link = link.replace("{" + pathVariable + "}", "\" + " + pathVariable + " + \"");
+        }
+        initializer = initializer.replace("{link}", link);
         initializer = initializer.replace("{verb}", routeModel.getMethod());
         if (routeModel.getMethod().equals("POST") || routeModel.getMethod().equals("PATCH"))
         {
