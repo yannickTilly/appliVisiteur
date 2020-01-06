@@ -4,6 +4,7 @@ import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -19,6 +20,10 @@ public class Report {
     @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "description", length = 100)
     private String description;
+
+    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "date")
+    private LocalDate date;
 
     @ManyToOne
     @JsonView({ReportView.DelegueRapportVisite.class})
@@ -36,6 +41,15 @@ public class Report {
     @JsonView({ReportView.RapportVisite.class})
     private Region region;
 
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Report setDate(LocalDate date) {
+        this.date = date;
+        return this;
+    }
 
     public String getDescription() {
         return description;
