@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("administrator")
+@RolesAllowed("ROLE_ADMINISTRATOR")
 public class VisitorWorkedTimeController extends BaseController {
     @Autowired
     private WorkedTimeRepository workedTimeRepository;

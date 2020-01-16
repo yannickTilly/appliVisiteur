@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
     User findByLogin(String login);
-    @Transactional
     User findOneById(long id);
 }

@@ -5,6 +5,7 @@ import LPY.appliVisiteur.Model.View.Visiteur.UserView;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -15,6 +16,10 @@ public class User {
     @Column(name = "id", unique = true)
     @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     private long id;
+
+    @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "role")
+    private String role;
 
     @JsonView({UserView.User.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "first_name")
@@ -65,6 +70,15 @@ public class User {
 
     public User setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public User setRole(String role) {
+        this.role = role;
         return this;
     }
 
