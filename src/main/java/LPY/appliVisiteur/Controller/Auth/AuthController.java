@@ -1,6 +1,6 @@
 package LPY.appliVisiteur.Controller.Auth;
 
-import LPY.appliVisiteur.Controller.BaseController;
+import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
@@ -26,9 +26,10 @@ public class AuthController extends BaseController {
             String token = JWT.create()
                     .withIssuer("auth0")
                     .withClaim("id", user.getId())
+                    .withClaim("role", user.getRole())
                     .sign(algorithm);
             AuthResponse authResponse = new AuthResponse();
-            authResponse.setToken(token.toString());
+            authResponse.setToken(token);
             return authResponse;
         }
         throw new UserNotFoundException("login non trouvé");

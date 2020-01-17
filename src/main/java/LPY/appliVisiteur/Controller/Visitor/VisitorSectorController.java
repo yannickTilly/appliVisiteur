@@ -1,6 +1,7 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.Visitor;
 
 import LPY.appliVisiteur.Controller.BaseController.BaseController;
+import LPY.appliVisiteur.Controller.BaseController.SectorController;
 import LPY.appliVisiteur.Model.Entity.Sector;
 import LPY.appliVisiteur.Model.Repository.SecteurRepository;
 import LPY.appliVisiteur.Model.View.Visiteur.SectorView;
@@ -17,20 +18,19 @@ import javax.annotation.security.RolesAllowed;
 @RestController
 @RequestMapping("administrator")
 @RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorSectorController extends BaseController {
+public class VisitorSectorController extends SectorController {
     @Autowired
     private SecteurRepository secteurRepository;
 
     @RequestMapping(value = "sector/{id}", method = RequestMethod.GET)
     @JsonView(SectorView.Secteur.class)
     public Sector getSector(@PathVariable("id") Long id) throws JsonProcessingException {
-        Sector sector = secteurRepository.findOneById(id);
-        return sector;
+        return super.getSector(id);
     }
 
     @RequestMapping(value = "sectors", method = RequestMethod.GET)
     @JsonView(SectorView.Secteur.class)
     public Iterable<Sector> getSectors() throws JsonProcessingException {
-        return secteurRepository.findAll();
+        return super.getSectors();
     }
 }

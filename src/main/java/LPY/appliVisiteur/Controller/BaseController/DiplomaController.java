@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.Diploma;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DiplomaRepository;
@@ -15,16 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorDiplomaController extends BaseController {
+public class DiplomaController extends BaseController {
     @Autowired
     private DiplomaRepository diplomaRepository;
 
-    @RequestMapping(value = "diploma/{id}", method = RequestMethod.GET)
-    @JsonView(DiplomaView.Diplome.class)
-    public Diploma getDiploma(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    public Diploma getDiploma(Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Diploma diploma = diplomaRepository.findOneById(id);
         if (diploma == null)
         {
@@ -33,8 +27,6 @@ public class AdministratorDiplomaController extends BaseController {
         return diplomaRepository.findOneById(id);
     }
 
-    @RequestMapping(value = "diplomas", method = RequestMethod.GET)
-    @JsonView(DiplomaView.Diplome.class)
     public Iterable<Diploma> getDiplomas() throws JsonProcessingException {
         return diplomaRepository.findAll();
     }

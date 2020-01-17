@@ -1,6 +1,6 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.Delegate;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
+import LPY.appliVisiteur.Controller.BaseController.DepartmentController;
 import LPY.appliVisiteur.Model.Entity.Department;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DepartmentRepository;
@@ -18,24 +18,19 @@ import java.util.Collection;
 @RestController
 @RequestMapping("administrator")
 @RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorDepartmentController extends BaseController {
+public class DelegateDepartmentController extends DepartmentController {
     @Autowired
     private DepartmentRepository departmentRepository;
 
     @RequestMapping(value = "department/{id}", method = RequestMethod.GET)
     @JsonView(DepartmentView.Departement.class)
     public Department getDepartment(@PathVariable("id") long id) throws RessouceNotFoundExeption {
-        Department department = departmentRepository.findOneById(id);
-        if (department == null)
-        {
-            throw new RessouceNotFoundExeption("department not found");
-        }
-        return department;
+        return super.getDepartment(id);
     }
 
     @RequestMapping(value = "departments", method = RequestMethod.GET)
     @JsonView(DepartmentView.Departement.class)
     public Collection<Department> getDepartments(){
-        return (Collection<Department>) departmentRepository.findAll();
+        return super.getDepartments();
     }
 }

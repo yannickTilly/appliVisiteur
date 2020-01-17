@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.ReportRepository;
@@ -17,11 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 
-
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorUserController extends BaseController
+public class UserController extends BaseController
 {
     @Autowired
     private UserRepository userRepository;
@@ -29,15 +24,11 @@ public class AdministratorUserController extends BaseController
     @Autowired
     private ReportRepository reportRepository;
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    @JsonView(UserView.User.class)
-    public User getVisitor() throws UserNotFoundException, JsonProcessingException {
+    public User getVisitor() throws UserNotFoundException{
         return this.getUser();
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.PATCH)
-    @JsonView(UserView.User.class)
-    public User patchVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, JsonProcessingException {
+    public User patchVisitor(VisiteurBody visiteurBody) throws UserNotFoundException{
 
         User user = this.getUser();
 

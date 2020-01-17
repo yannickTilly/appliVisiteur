@@ -1,14 +1,13 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.Drug;
 import LPY.appliVisiteur.Model.Entity.DrugPresentation;
 import LPY.appliVisiteur.Model.Entity.Report;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
+import LPY.appliVisiteur.Model.Repository.DrugPresentationRepository;
 import LPY.appliVisiteur.Model.Repository.DrugRepository;
 import LPY.appliVisiteur.Model.Repository.PraticionnerRepository;
-import LPY.appliVisiteur.Model.Repository.DrugPresentationRepository;
 import LPY.appliVisiteur.Model.Repository.ReportRepository;
 import LPY.appliVisiteur.Model.RequestBody.Visiteur.PresentationMedicamentBody;
 import LPY.appliVisiteur.Model.View.Visiteur.DrugPresentationView;
@@ -19,10 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorDrugPresentationController extends BaseController {
+public class DrugPresentationController extends BaseController {
     @Autowired
     private ReportRepository reportRepository;
 
@@ -35,9 +31,7 @@ public class AdministratorDrugPresentationController extends BaseController {
     @Autowired
     private DrugPresentationRepository drugPresentationRepository;
 
-    @RequestMapping(value = "drugPresentation", method = RequestMethod.POST)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public Report postDrug(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
+    public Report postDrugPresentation(PresentationMedicamentBody presentationMedicamentBody)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
         Report report = reportRepository.findOneByUserAndId(this.getUser(),presentationMedicamentBody.getIdRapportVisite());
@@ -57,9 +51,7 @@ public class AdministratorDrugPresentationController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.DELETE)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public Report deleteDrug(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
+    public Report deleteDrugPresentation(Long idPresentationMedicament)
             throws RessouceNotFoundExeption
     {
         DrugPresentation drugPresentation = drugPresentationRepository.findOneById(idPresentationMedicament);
@@ -75,10 +67,8 @@ public class AdministratorDrugPresentationController extends BaseController {
 
     }
 
-    @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.GET)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public DrugPresentation getDrug(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
-            throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
+    public DrugPresentation getDrugPresentation(Long idPresentationMedicament)
+            throws RessouceNotFoundExeption
     {
         DrugPresentation drugPresentation = drugPresentationRepository.findOneById(idPresentationMedicament);
         if (drugPresentation == null)

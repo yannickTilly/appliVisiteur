@@ -1,6 +1,6 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.Delegate;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
+import LPY.appliVisiteur.Controller.BaseController.DiplomaController;
 import LPY.appliVisiteur.Model.Entity.Diploma;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DiplomaRepository;
@@ -18,24 +18,19 @@ import javax.annotation.security.RolesAllowed;
 @RestController
 @RequestMapping("administrator")
 @RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorDiplomaController extends BaseController {
+public class DelegateDiplomaController extends DiplomaController {
     @Autowired
     private DiplomaRepository diplomaRepository;
 
     @RequestMapping(value = "diploma/{id}", method = RequestMethod.GET)
     @JsonView(DiplomaView.Diplome.class)
-    public Diploma getDiploma(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
-        Diploma diploma = diplomaRepository.findOneById(id);
-        if (diploma == null)
-        {
-            throw new RessouceNotFoundExeption("diploma not found");
-        }
-        return diplomaRepository.findOneById(id);
+    public Diploma getDiploma(@PathVariable("id") Long id) throws RessouceNotFoundExeption, JsonProcessingException {
+        return super.getDiploma(id);
     }
 
     @RequestMapping(value = "diplomas", method = RequestMethod.GET)
     @JsonView(DiplomaView.Diplome.class)
     public Iterable<Diploma> getDiplomas() throws JsonProcessingException {
-        return diplomaRepository.findAll();
+        return super.getDiplomas();
     }
 }

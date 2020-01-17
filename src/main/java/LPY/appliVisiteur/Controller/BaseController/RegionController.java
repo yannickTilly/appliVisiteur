@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.Region;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.RegionRepository;
@@ -14,17 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.Collection;
 
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorRegionController extends BaseController {
+public class RegionController extends BaseController {
     @Autowired
     private RegionRepository regionRepository;
 
-    @RequestMapping(value = "region/{id}", method = RequestMethod.GET)
-    @JsonView(RegionView.Region.class)
-    public Region getRegion(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    public Region getRegion(Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Region region = regionRepository.findOneById(id);
         if(region == null)
         {
@@ -33,9 +28,7 @@ public class AdministratorRegionController extends BaseController {
         return region;
     }
 
-    @RequestMapping(value = "regions", method = RequestMethod.GET)
-    @JsonView(RegionView.Region.class)
-    public Iterable<Region> getRegions() throws JsonProcessingException {
-        return regionRepository.findAll();
+    public Collection<Region> getRegions() throws JsonProcessingException {
+        return (Collection<Region>) regionRepository.findAll();
     }
 }

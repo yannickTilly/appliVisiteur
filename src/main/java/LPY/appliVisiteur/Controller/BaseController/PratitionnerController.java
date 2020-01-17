@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.Pratitionner;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.PraticionnerRepository;
@@ -14,16 +13,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.Collection;
 
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorPratitionnerController extends BaseController {
+public class PratitionnerController extends BaseController {
     @Autowired
     private PraticionnerRepository praticionnerRepository;
 
-    @RequestMapping(value = "pratitionner/{id}", method = RequestMethod.GET)
-    @JsonView(PratitionnerView.Praticien.class)
     public Pratitionner getDepartment(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Pratitionner pratitionner = praticionnerRepository.findOneById(id);
         if (pratitionner == null)
@@ -33,9 +28,7 @@ public class AdministratorPratitionnerController extends BaseController {
         return pratitionner;
     }
 
-    @RequestMapping(value = "pratitionners", method = RequestMethod.GET)
-    @JsonView(PratitionnerView.Praticien.class)
-    public Iterable<Pratitionner> getPratitionners() throws JsonProcessingException {
-        return praticionnerRepository.findAll();
+    public Collection<Pratitionner> getPratitionners() throws JsonProcessingException {
+        return (Collection<Pratitionner>) praticionnerRepository.findAll();
     }
 }

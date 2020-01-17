@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Visitor;
+package LPY.appliVisiteur.Controller.Delegate;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Controller.BaseController.PratitionnerController;
 import LPY.appliVisiteur.Model.Entity.Pratitionner;
 import LPY.appliVisiteur.Model.Repository.PraticionnerRepository;
@@ -16,7 +15,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
-public class VisitorPratitionnerController extends PratitionnerController {
+public class DelegatePratitionnerController extends PratitionnerController {
     @Autowired
     private PraticionnerRepository praticionnerRepository;
 

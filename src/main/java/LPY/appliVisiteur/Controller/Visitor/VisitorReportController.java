@@ -1,10 +1,13 @@
 package LPY.appliVisiteur.Controller.Visitor;
 
 import LPY.appliVisiteur.Controller.Administrator.AdministratorReportController;
-import LPY.appliVisiteur.Controller.BaseController;
+import LPY.appliVisiteur.Controller.BaseController.BaseController;
+import LPY.appliVisiteur.Controller.BaseController.ReportController;
 import LPY.appliVisiteur.Model.Entity.*;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
+import LPY.appliVisiteur.Model.Repository.DrugRepository;
+import LPY.appliVisiteur.Model.Repository.UserRepository;
 import LPY.appliVisiteur.Model.RequestBody.Visiteur.ReportBody;
 import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -12,42 +15,48 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
-public class VisitorReportController extends BaseController {
+public class VisitorReportController extends ReportController {
     @Autowired
     private AdministratorReportController administratorReportController;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private DrugRepository drugRepository;
 
     @RequestMapping(value = "report", method = RequestMethod.POST)
     @JsonView(ReportView.RapportVisite.class)
     public Report postReport(@RequestBody ReportBody reportBody) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
-
-        return administratorReportController.postReport(reportBody, this.getUser().getId());
+        return super.postReport(reportBody, this.getUser().getId());
     }
 
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.GET)
     @JsonView(ReportView.RapportVisite.class)
     public Report getReport(@PathVariable long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return administratorReportController.getReport(reportId);
+        return super.getReport(reportId);
     }
 
     @RequestMapping(value = "reports", method = RequestMethod.GET)
     @JsonView(ReportView.RapportVisite.class)
-    public Collection<Report> getReports() throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return this.getUser().getReports();
+    public Collection<Report> getReports() throws UserNotFoundException, JsonProcessingException {
+        return super.getReports();
     }
 
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.PATCH)
     @JsonView(ReportView.RapportVisite.class)
     public Report patchReport(@PathVariable long reportId, @RequestBody ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return administratorReportController.patchReport(reportId, reportBody);
+        return super.patchReport(reportId, reportBody);
     }
 
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.DELETE)
     @JsonView(ReportView.RapportVisite.class)
     public Collection<Report> deleteReport(@PathVariable long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return administratorReportController.deleteReport(reportId);
+        return super.deleteReport(reportId);
     }
 }

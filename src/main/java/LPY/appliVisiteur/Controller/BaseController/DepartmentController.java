@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.Department;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DepartmentRepository;
@@ -15,16 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorDepartmentController extends BaseController {
+public class DepartmentController extends BaseController {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    @RequestMapping(value = "department/{id}", method = RequestMethod.GET)
-    @JsonView(DepartmentView.Departement.class)
-    public Department getDepartment(@PathVariable("id") long id) throws RessouceNotFoundExeption {
+    public Department getDepartment(long id) throws RessouceNotFoundExeption {
         Department department = departmentRepository.findOneById(id);
         if (department == null)
         {
@@ -33,8 +27,6 @@ public class AdministratorDepartmentController extends BaseController {
         return department;
     }
 
-    @RequestMapping(value = "departments", method = RequestMethod.GET)
-    @JsonView(DepartmentView.Departement.class)
     public Collection<Department> getDepartments(){
         return (Collection<Department>) departmentRepository.findAll();
     }

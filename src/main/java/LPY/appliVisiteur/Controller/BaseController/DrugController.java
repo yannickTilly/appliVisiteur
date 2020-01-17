@@ -1,6 +1,5 @@
-package LPY.appliVisiteur.Controller.Administrator;
+package LPY.appliVisiteur.Controller.BaseController;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Model.Entity.Drug;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Repository.DrugRepository;
@@ -16,16 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
-@RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
-public class AdministratorDrugController extends BaseController {
+public class DrugController extends BaseController {
     @Autowired
     private DrugRepository drugRepository;
 
-    @RequestMapping(value = "drug/{id}", method = RequestMethod.GET)
-    @JsonView(DrugView.Medicament.class)
-    public Drug getDepartment(@PathVariable("id") Long id) throws JsonProcessingException, RessouceNotFoundExeption {
+    public Drug getDrug(Long id) throws JsonProcessingException, RessouceNotFoundExeption {
         Drug drug = drugRepository.findOneById(id);
         if (drug == null)
         {
@@ -34,8 +28,6 @@ public class AdministratorDrugController extends BaseController {
         return drug;
     }
 
-    @RequestMapping(value = "drugs", method = RequestMethod.GET)
-    @JsonView(DrugView.Medicament.class)
     public Collection<Drug> getDrugs() throws JsonProcessingException {
         return (Collection<Drug>) drugRepository.findAll();
     }

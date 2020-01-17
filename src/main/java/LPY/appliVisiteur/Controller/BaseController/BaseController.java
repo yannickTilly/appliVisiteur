@@ -1,4 +1,4 @@
-package LPY.appliVisiteur.Controller;
+package LPY.appliVisiteur.Controller.BaseController;
 
 import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
