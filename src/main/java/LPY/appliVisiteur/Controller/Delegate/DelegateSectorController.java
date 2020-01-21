@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.security.RolesAllowed;
 
 @RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
+@RequestMapping("delegate")
+@RolesAllowed("ROLE_DELEGATE")
 public class DelegateSectorController extends SectorController {
     @Autowired
     private SecteurRepository secteurRepository;

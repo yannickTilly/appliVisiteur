@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
+@RolesAllowed("ROLE_VISITOR")
 public class VisitorDrugController  extends DrugController {
 
     @Autowired

@@ -18,8 +18,8 @@ import javax.annotation.security.RolesAllowed;
 
 
 @RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
+@RequestMapping("delegate")
+@RolesAllowed("ROLE_DELEGATE")
 public class DelegateUserController extends UserController
 {
     @Autowired

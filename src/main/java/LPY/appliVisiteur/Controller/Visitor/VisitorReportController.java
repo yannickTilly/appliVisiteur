@@ -13,13 +13,17 @@ import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
+@Secured("ROLE_VISITOR")
 public class VisitorReportController extends ReportController {
     @Autowired
     private AdministratorReportController administratorReportController;

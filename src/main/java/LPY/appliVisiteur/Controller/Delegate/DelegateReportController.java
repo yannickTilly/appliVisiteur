@@ -11,16 +11,19 @@ import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("delegue")
+@RequestMapping("delegate")
+@Secured("ROLE_DELEGATE")
 public class DelegateReportController extends VisitorReportController {
     @Autowired
     private UserRepository userRepository;
@@ -41,20 +44,19 @@ public class DelegateReportController extends VisitorReportController {
     @Override
     @RequestMapping(value = "reports", method = RequestMethod.GET)
     @JsonView(ReportView.DelegueRapportVisite.class)
-    public Collection<Report> getReports() throws UserNotFoundException, JsonProcessingException {
+    public Collection<Report> getReports() throws UserNotFoundException {
         Collection<Report> reports = this.getUser().getRegion().getReports();
         return reports;
     }
 
     @RequestMapping(value = "user/{userId}/reports", method = RequestMethod.GET)
     @JsonView(ReportView.DelegueRapportVisite.class)
-    public Collection<Report> getReports(@PathVariable("userId") Long id) throws UserNotFoundException, JsonProcessingException {
+    public Collection<Report> getReports(@PathVariable("userId") Long id) throws UserNotFoundException {
         User user = userRepository.findOneById(id);
         Collection<Report> reports = reportRepository.findByUserAndRegion(user, this.getUser().getRegion());
-        if (user != null)
-        {
+        if (user != null) {
             return reports;
-        }else {
+        } else {
             throw new UserNotFoundException("No user found with this id");
         }
     }

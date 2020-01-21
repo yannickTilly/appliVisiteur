@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("visitor")
+@RequestMapping("delegate")
+@RolesAllowed("ROLE_DELEGATE")
 public class DelegatePratitionnerController extends PratitionnerController {
     @Autowired
     private PraticionnerRepository praticionnerRepository;

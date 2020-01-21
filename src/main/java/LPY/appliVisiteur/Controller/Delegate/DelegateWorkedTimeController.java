@@ -17,8 +17,8 @@ import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
+@RequestMapping("delegate")
+@RolesAllowed("ROLE_DELEGATE")
 public class DelegateWorkedTimeController extends WorkedTimeController {
     @Autowired
     private WorkedTimeRepository workedTimeRepository;

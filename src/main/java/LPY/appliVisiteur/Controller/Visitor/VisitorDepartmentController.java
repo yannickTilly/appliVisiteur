@@ -17,8 +17,8 @@ import javax.annotation.security.RolesAllowed;
 import java.util.Collection;
 
 @RestController
-@RequestMapping("administrator")
-@RolesAllowed("ROLE_ADMINISTRATOR")
+@RequestMapping("visitor")
+@RolesAllowed("ROLE_VISITOR")
 public class VisitorDepartmentController extends DepartmentController {
     @Autowired
     private DepartmentRepository departmentRepository;

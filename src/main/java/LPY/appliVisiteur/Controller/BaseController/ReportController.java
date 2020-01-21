@@ -5,13 +5,10 @@ import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.*;
 import LPY.appliVisiteur.Model.RequestBody.Visiteur.ReportBody;
-import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
-import com.fasterxml.jackson.annotation.JsonView;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -115,6 +112,5 @@ public class ReportController extends BaseController {
             reportRepository.save(report);
             return report;
         }
-
     }
 }
