@@ -4,6 +4,7 @@ import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -17,11 +18,19 @@ public class Report {
     private long id;
 
     @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "label", length = 100)
+    private String label;
+
+    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "description", length = 100)
     private String description;
 
+    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @Column(name = "date")
+    private LocalDate date;
+
     @ManyToOne
-    @JsonView({ReportView.DelegueRapportVisite.class, })
+    @JsonView({ReportView.DelegueRapportVisite.class})
     private User user;
 
     @OneToMany(mappedBy = "report")
@@ -33,12 +42,26 @@ public class Report {
     private Pratitionner pratitionner;
 
     @ManyToOne
+    @JsonView({ReportView.RapportVisite.class})
     private Region region;
 
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
-    @Column(name = "sample_number")
-    private int sampleNumber;
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Report setDate(LocalDate date) {
+        this.date = date;
+        return this;
+    }
 
     public String getDescription() {
         return description;
@@ -95,15 +118,6 @@ public class Report {
 
     public Report setRegion(Region region) {
         this.region = region;
-        return this;
-    }
-
-    public int getSampleNumber() {
-        return sampleNumber;
-    }
-
-    public Report setSampleNumber(int sampleNumber) {
-        this.sampleNumber = sampleNumber;
         return this;
     }
 }
