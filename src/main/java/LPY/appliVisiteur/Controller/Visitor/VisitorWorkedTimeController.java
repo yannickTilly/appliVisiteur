@@ -4,6 +4,7 @@ import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Controller.BaseController.WorkedTimeController;
 import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Entity.WorkedTime;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.WorkedTimeRepository;
@@ -28,13 +29,16 @@ public class VisitorWorkedTimeController extends WorkedTimeController {
 
     @RequestMapping(value = "workedTime/{id}", method = RequestMethod.GET)
     @JsonView(WorkedTimeView.PeriodeTravaille.class)
-    public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption {
-        return super.getWorkedTime(id);
+    public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, AccessDeniedException {
+        WorkedTime workedTime =  super.getWorkedTime(id);
+        if( workedTime.getUser().getId() == this.getUser().getId()) return  super.getWorkedTime(id);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas");
     }
 
     @RequestMapping(value = "workedTimes", method = RequestMethod.GET)
     @JsonView(WorkedTimeView.PeriodeTravaille.class)
-    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException{
+    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException, AccessDeniedException {
         return super.getWorkedTimes();
+
     }
 }

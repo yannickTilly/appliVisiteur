@@ -41,15 +41,12 @@ public class AdministratorUserController extends BaseController
 
         User user = this.getUser();
 
-
         if (visiteurBody.getVille() != null)
         {
             user.setVille(visiteurBody.getVille());
         }
-        if (visiteurBody.getCodePostal() != null)
-        {
-            user.setVille(visiteurBody.getCodePostal());
-        }
+
+
         userRepository.save(user);
         return this.getUser();
     }

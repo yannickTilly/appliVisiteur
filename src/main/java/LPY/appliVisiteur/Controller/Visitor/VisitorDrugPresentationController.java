@@ -1,10 +1,8 @@
 package LPY.appliVisiteur.Controller.Visitor;
 
-import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Controller.BaseController.DrugPresentationController;
-import LPY.appliVisiteur.Model.Entity.Drug;
-import LPY.appliVisiteur.Model.Entity.DrugPresentation;
 import LPY.appliVisiteur.Model.Entity.Report;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.DrugPresentationRepository;
@@ -37,7 +35,7 @@ public class VisitorDrugPresentationController extends DrugPresentationControlle
     private DrugPresentationRepository drugPresentationRepository;
 
     @RequestMapping(value = "drugPresentation", method = RequestMethod.POST)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
+    @JsonView(DrugPresentationView.DrugPresentation.class)
     public Report postDrugPresentation(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
@@ -45,18 +43,20 @@ public class VisitorDrugPresentationController extends DrugPresentationControlle
     }
 
     @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.DELETE)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public Report deleteDrugPresentation(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
-            throws RessouceNotFoundExeption
-    {
-        return super.deleteDrugPresentation(idPresentationMedicament);
+    @JsonView(DrugPresentationView.DrugPresentation.class)
+    public Report deleteDrugPresentation(@PathVariable("idPresentationMedicament") Long drugPresentationId) throws RessouceNotFoundExeption, AccessDeniedException, UserNotFoundException {
+        LPY.appliVisiteur.Model.Entity.DrugPresentation drugPresentation = super.getDrugPresentation(drugPresentationId);
+        if( drugPresentation.getReport().getUser().getId() == this.getUser().getId()) return super.deleteDrugPresentation(drugPresentationId);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas");
+
     }
 
-    @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.GET)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public DrugPresentation getDrugPresentation(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
-            throws RessouceNotFoundExeption
-    {
-        return  super.getDrugPresentation(idPresentationMedicament);
+    @RequestMapping(value = "drugPresentation/{drugPresentationId}", method = RequestMethod.GET)
+    @JsonView(DrugPresentationView.DrugPresentation.class)
+    public LPY.appliVisiteur.Model.Entity.DrugPresentation getDrugPresentation(@PathVariable("drugPresentationId") Long drugPresentationId)
+            throws RessouceNotFoundExeption, AccessDeniedException, UserNotFoundException {
+        LPY.appliVisiteur.Model.Entity.DrugPresentation drugPresentation = super.getDrugPresentation(drugPresentationId);
+        if( drugPresentation.getReport().getUser().getId() == this.getUser().getId()) return super.getDrugPresentation(drugPresentationId);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas");
     }
 }

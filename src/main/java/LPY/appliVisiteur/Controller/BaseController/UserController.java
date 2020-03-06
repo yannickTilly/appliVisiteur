@@ -1,6 +1,7 @@
 package LPY.appliVisiteur.Controller.BaseController;
 
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.ReportRepository;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
@@ -28,10 +29,9 @@ public class UserController extends BaseController
         return this.getUser();
     }
 
-    public User patchVisitor(VisiteurBody visiteurBody) throws UserNotFoundException{
+    public User patchVisitor(VisiteurBody visiteurBody) throws UserNotFoundException, AccessDeniedException {
 
         User user = this.getUser();
-
 
         if (visiteurBody.getVille() != null)
         {
@@ -39,7 +39,23 @@ public class UserController extends BaseController
         }
         if (visiteurBody.getCodePostal() != null)
         {
-            user.setVille(visiteurBody.getCodePostal());
+            user.setCodePostal(visiteurBody.getCodePostal());
+        }
+        if (visiteurBody.getCodePostal() != null)
+        {
+            user.setCodePostal(visiteurBody.getCodePostal());
+        }
+        if(visiteurBody.getNumeroVoie() != null)
+        {
+            user.setNumberStreet(visiteurBody.getNumeroVoie());
+        }
+        if(visiteurBody.getTypeVoie() != null)
+        {
+            user.setStreetType(visiteurBody.getTypeVoie());
+        }
+        if(visiteurBody.getNomVoie() != null)
+        {
+            user.setStreetName(visiteurBody.getNomVoie());
         }
         userRepository.save(user);
         return this.getUser();

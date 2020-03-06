@@ -28,7 +28,7 @@ public class AdministratorWorkedTimeController extends BaseController {
     @RequestMapping(value = "workedTime/{id}", method = RequestMethod.GET)
     @JsonView(WorkedTimeView.PeriodeTravaille.class)
     public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
-        WorkedTime workedTime = workedTimeRepository.findByIdAndUser(id, this.getUser());
+        WorkedTime workedTime = null;
         if (workedTime == null)
         {
             throw new RessouceNotFoundExeption("workedTime not found");

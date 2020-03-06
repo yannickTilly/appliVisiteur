@@ -39,6 +39,9 @@ public class ReportController extends BaseController {
             return report;
         }
     }
+    public Collection<Report> getReportsByUser( User user)  {
+        return reportRepository.findByUser(user);
+    }
 
     public Collection<Report> deleteReport(Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
         Report report = reportRepository.findOneById(id);

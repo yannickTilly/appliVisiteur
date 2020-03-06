@@ -11,4 +11,7 @@ public interface WorkedTimeRepository extends CrudRepository<WorkedTime, Integer
     Optional<WorkedTime> findById(long id);
     Collection<WorkedTime>findByUser(User user);
     WorkedTime findByIdAndUser(long id, User user);
+
+
 }
+

@@ -3,6 +3,7 @@ package LPY.appliVisiteur.Controller.BaseController;
 import LPY.appliVisiteur.Model.Entity.Drug;
 import LPY.appliVisiteur.Model.Entity.DrugPresentation;
 import LPY.appliVisiteur.Model.Entity.Report;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.DrugPresentationRepository;
@@ -52,8 +53,7 @@ public class DrugPresentationController extends BaseController {
     }
 
     public Report deleteDrugPresentation(Long idPresentationMedicament)
-            throws RessouceNotFoundExeption
-    {
+            throws RessouceNotFoundExeption, AccessDeniedException, UserNotFoundException {
         DrugPresentation drugPresentation = drugPresentationRepository.findOneById(idPresentationMedicament);
         if (drugPresentation == null)
         {
@@ -68,8 +68,7 @@ public class DrugPresentationController extends BaseController {
     }
 
     public DrugPresentation getDrugPresentation(Long idPresentationMedicament)
-            throws RessouceNotFoundExeption
-    {
+            throws RessouceNotFoundExeption, AccessDeniedException, UserNotFoundException {
         DrugPresentation drugPresentation = drugPresentationRepository.findOneById(idPresentationMedicament);
         if (drugPresentation == null)
         {

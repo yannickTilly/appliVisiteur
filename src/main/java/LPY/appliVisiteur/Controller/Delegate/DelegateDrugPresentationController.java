@@ -1,8 +1,8 @@
 package LPY.appliVisiteur.Controller.Delegate;
 
 import LPY.appliVisiteur.Controller.BaseController.DrugPresentationController;
-import LPY.appliVisiteur.Model.Entity.DrugPresentation;
 import LPY.appliVisiteur.Model.Entity.Report;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.DrugPresentationRepository;
@@ -35,7 +35,7 @@ public class DelegateDrugPresentationController extends DrugPresentationControll
     private DrugPresentationRepository drugPresentationRepository;
 
     @RequestMapping(value = "drugPresentation", method = RequestMethod.POST)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
+    @JsonView(DrugPresentationView.DrugPresentation.class)
     public Report postDrugPresentation(@RequestBody PresentationMedicamentBody presentationMedicamentBody)
             throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException
     {
@@ -43,18 +43,16 @@ public class DelegateDrugPresentationController extends DrugPresentationControll
     }
 
     @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.DELETE)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
+    @JsonView(DrugPresentationView.DrugPresentation.class)
     public Report deleteDrugPresentation(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
-            throws RessouceNotFoundExeption
-    {
+            throws RessouceNotFoundExeption, AccessDeniedException, UserNotFoundException {
         return super.deleteDrugPresentation(idPresentationMedicament);
     }
 
     @RequestMapping(value = "drugPresentation/{idPresentationMedicament}", method = RequestMethod.GET)
-    @JsonView(DrugPresentationView.PresentationMedicament.class)
-    public DrugPresentation getDrugPresentation(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
-            throws RessouceNotFoundExeption
-    {
+    @JsonView(DrugPresentationView.DrugPresentation.class)
+    public LPY.appliVisiteur.Model.Entity.DrugPresentation getDrugPresentation(@PathVariable("idPresentationMedicament") Long idPresentationMedicament)
+            throws RessouceNotFoundExeption, AccessDeniedException, UserNotFoundException {
         return  super.getDrugPresentation(idPresentationMedicament);
     }
 }

@@ -2,6 +2,7 @@ package LPY.appliVisiteur.Controller.Delegate;
 
 import LPY.appliVisiteur.Controller.BaseController.WorkedTimeController;
 import LPY.appliVisiteur.Model.Entity.WorkedTime;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.WorkedTimeRepository;
@@ -25,13 +26,13 @@ public class DelegateWorkedTimeController extends WorkedTimeController {
 
     @RequestMapping(value = "workedTime/{id}", method = RequestMethod.GET)
     @JsonView(WorkedTimeView.PeriodeTravaille.class)
-    public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption {
+    public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, AccessDeniedException {
         return super.getWorkedTime(id);
     }
 
     @RequestMapping(value = "workedTimes", method = RequestMethod.GET)
     @JsonView(WorkedTimeView.PeriodeTravaille.class)
-    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException{
+    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException, AccessDeniedException {
         return super.getWorkedTimes();
     }
 }

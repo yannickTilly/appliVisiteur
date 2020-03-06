@@ -1,13 +1,17 @@
 package LPY.appliVisiteur.Model.PrimaryKey;
 
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.View.Visiteur.UserView;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import java.io.Serializable;
 import java.util.Date;
 
 public class WorkSchedulePrimaryKey implements Serializable {
     private User user;
+    @JsonView(UserView.User.class)
     private Date dateStart;
+    @JsonView(UserView.User.class)
     private Date dateEnd;
 
     public WorkSchedulePrimaryKey(User user, Date dateStart, Date dateEnd)

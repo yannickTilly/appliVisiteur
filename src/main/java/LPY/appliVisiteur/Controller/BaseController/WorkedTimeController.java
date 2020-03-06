@@ -2,6 +2,7 @@ package LPY.appliVisiteur.Controller.BaseController;
 
 import LPY.appliVisiteur.Model.Entity.User;
 import LPY.appliVisiteur.Model.Entity.WorkedTime;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.WorkedTimeRepository;
@@ -21,7 +22,7 @@ public class WorkedTimeController extends BaseController {
     @Autowired
     private WorkedTimeRepository workedTimeRepository;
 
-    public WorkedTime getWorkedTime(Long id) throws UserNotFoundException, RessouceNotFoundExeption {
+    public WorkedTime getWorkedTime(Long id) throws UserNotFoundException, RessouceNotFoundExeption, AccessDeniedException {
         WorkedTime workedTime = workedTimeRepository.findByIdAndUser(id, this.getUser());
         if (workedTime == null)
         {
@@ -33,9 +34,11 @@ public class WorkedTimeController extends BaseController {
         }
     }
 
-    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException{
+    public Collection<WorkedTime> getWorkedTimes() throws UserNotFoundException, AccessDeniedException {
         User user = this.getUser();
         Collection<WorkedTime> workedTimes = workedTimeRepository.findByUser(user);
         return workedTimes;
     }
+
+
 }

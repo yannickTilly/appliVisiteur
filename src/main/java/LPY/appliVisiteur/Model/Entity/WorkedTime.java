@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@IdClass(WorkSchedulePrimaryKey.class)
 @Table(name = "WorkSchedules")
 public class WorkedTime {
 
@@ -53,7 +52,7 @@ public class WorkedTime {
         return this;
     }
 
-    public User getUser() {
+    public User     getUser() {
         return user;
     }
 

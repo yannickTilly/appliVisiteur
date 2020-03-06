@@ -2,6 +2,7 @@ package LPY.appliVisiteur.Controller.Delegate;
 
 import LPY.appliVisiteur.Controller.BaseController.UserController;
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.ReportRepository;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
@@ -36,7 +37,7 @@ public class DelegateUserController extends UserController
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
     @JsonView(UserView.User.class)
-    public User patchVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException {
+    public User patchVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, AccessDeniedException {
         return super.patchVisitor(visiteurBody);
     }
 }

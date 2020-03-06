@@ -33,7 +33,6 @@ public class User {
     @Column(name = "login", unique = true)
     private String login;
 
-
     @Column(name = "password")
     private String password;
 
@@ -44,6 +43,19 @@ public class User {
     @JsonView(UserView.User.class)
     @Column(name = "city")
     private String ville;
+
+    @JsonView(UserView.User.class)
+    @Column(name = "street_number")
+    private Integer numberStreet;
+
+    @JsonView(UserView.User.class)
+    @Column( name = "street_type")
+    private String streetType;
+
+    @JsonView(UserView.User.class)
+    @Column(name = "street_name")
+    private String streetName;
+
 
     @JsonView(UserView.User.class)
     @Column(name = "hiring_date")
@@ -64,7 +76,7 @@ public class User {
     private Region region;
 
 
-    public long getId() {
+    public  long getId() {
         return id;
     }
 
@@ -178,6 +190,33 @@ public class User {
 
     public User setMatricule(String matricule) {
         this.matricule = matricule;
+        return this;
+    }
+
+    public Integer getNumberStreet() {
+        return numberStreet;
+    }
+
+    public User setNumberStreet(Integer numberStreet) {
+        this.numberStreet = numberStreet;
+        return this;
+    }
+
+    public String getStreetType() {
+        return streetType;
+    }
+
+    public User setStreetType(String streetType) {
+        this.streetType = streetType;
+        return this;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public User setStreetName(String streetName) {
+        this.streetName = streetName;
         return this;
     }
 }

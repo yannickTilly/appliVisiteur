@@ -4,6 +4,7 @@ import LPY.appliVisiteur.Controller.Administrator.AdministratorReportController;
 import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Controller.BaseController.ReportController;
 import LPY.appliVisiteur.Model.Entity.*;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.RessouceNotFoundExeption;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.DrugRepository;
@@ -42,25 +43,31 @@ public class VisitorReportController extends ReportController {
 
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.GET)
     @JsonView(ReportView.RapportVisite.class)
-    public Report getReport(@PathVariable long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return super.getReport(reportId);
+    public Report getReport(@PathVariable long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException, AccessDeniedException {
+        Report report = super.getReport(reportId);
+        if( report.getUser().getId() == this.getUser().getId()) return super.getReport(reportId);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas");
     }
 
     @RequestMapping(value = "reports", method = RequestMethod.GET)
     @JsonView(ReportView.RapportVisite.class)
     public Collection<Report> getReports() throws UserNotFoundException, JsonProcessingException {
-        return super.getReports();
+        return super.getReportsByUser(this.getUser());
     }
 
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.PATCH)
     @JsonView(ReportView.RapportVisite.class)
-    public Report patchReport(@PathVariable long reportId, @RequestBody ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return super.patchReport(reportId, reportBody);
+    public Report patchReport(@PathVariable long reportId, @RequestBody ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException, AccessDeniedException {
+        Report report = super.getReport(reportId);
+        if ( report.getUser().getId() == this.getUser().getId()) return super.patchReport(reportId, reportBody);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas") ;
     }
 
     @RequestMapping(value = "report/{reportId}", method = RequestMethod.DELETE)
     @JsonView(ReportView.RapportVisite.class)
-    public Collection<Report> deleteReport(@PathVariable long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        return super.deleteReport(reportId);
+    public Collection<Report> deleteReport(@PathVariable long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException, AccessDeniedException {
+        Report report = super.getReport(reportId);
+        if ( report.getUser().getId() == this.getUser().getId()) return super.deleteReport(reportId);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas") ;
     }
 }

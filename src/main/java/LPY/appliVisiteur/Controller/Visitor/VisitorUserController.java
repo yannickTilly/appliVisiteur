@@ -3,6 +3,7 @@ package LPY.appliVisiteur.Controller.Visitor;
 import LPY.appliVisiteur.Controller.BaseController.BaseController;
 import LPY.appliVisiteur.Controller.BaseController.UserController;
 import LPY.appliVisiteur.Model.Entity.User;
+import LPY.appliVisiteur.Model.Exception.AccessDeniedException;
 import LPY.appliVisiteur.Model.Exception.UserNotFoundException;
 import LPY.appliVisiteur.Model.Repository.ReportRepository;
 import LPY.appliVisiteur.Model.Repository.UserRepository;
@@ -33,11 +34,14 @@ public class VisitorUserController extends UserController
     @JsonView(UserView.User.class)
     public User getVisitor() throws UserNotFoundException {
         return super.getVisitor();
+
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PATCH)
     @JsonView(UserView.User.class)
-    public User patchVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException {
-        return super.patchVisitor(visiteurBody);
+    public User patchVisitor(@RequestBody VisiteurBody visiteurBody) throws UserNotFoundException, AccessDeniedException {
+        User user  = super.getUser();
+        if( user.getId() == this.getUser().getId()) return super.patchVisitor(visiteurBody);
+        else throw new AccessDeniedException("Ce rapport ne vous appartient pas") ;
     }
 }
