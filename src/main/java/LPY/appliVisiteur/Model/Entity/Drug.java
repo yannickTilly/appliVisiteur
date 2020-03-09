@@ -14,11 +14,11 @@ public class Drug {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, DrugView.Medicament.class})
+    @JsonView({ReportView.Report.class, DrugView.Medicament.class})
     private long id;
 
     @Column(name = "name", length = 50)
-    @JsonView({ReportView.RapportVisite.class, DrugView.Medicament.class})
+    @JsonView({ReportView.Report.class, DrugView.Medicament.class})
     private String name;
 
     @Column(name = "description", length = 100)

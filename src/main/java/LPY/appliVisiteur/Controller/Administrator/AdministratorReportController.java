@@ -36,7 +36,7 @@ public class AdministratorReportController extends BaseController {
     protected UserRepository userRepository;
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.GET)
-    @JsonView(ReportView.RapportVisite.class)
+    @JsonView(ReportView.Report.class)
     public Report getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
         Report report = reportRepository.findOneById(id);
         if (report == null)
@@ -50,7 +50,7 @@ public class AdministratorReportController extends BaseController {
     }
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.DELETE)
-    @JsonView(ReportView.RapportVisite.class)
+    @JsonView(ReportView.Report.class)
     public Collection<Report> deleteReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
         Report report = reportRepository.findOneById(id);
         if (report == null)
@@ -67,14 +67,14 @@ public class AdministratorReportController extends BaseController {
 
 
     @RequestMapping(value = "reports", method = RequestMethod.GET)
-    @JsonView(ReportView.RapportVisite.class)
+    @JsonView(ReportView.Report.class)
     public Collection<Report> getReports() throws UserNotFoundException, JsonProcessingException {
         Collection<Report> reports = (Collection<Report>) reportRepository.findAll();
         return reports;
     }
 
     @RequestMapping(value = "user/{idUser}/report", method = RequestMethod.POST)
-    @JsonView(ReportView.RapportVisite.class)
+    @JsonView(ReportView.Report.class)
     public Report postReport(@RequestBody ReportBody reportBody, @PathVariable("idUser") long idUser) throws UserNotFoundException, JsonProcessingException, RessouceNotFoundExeption {
         User user = userRepository.findOneById(idUser);
         Report report = new Report();
@@ -114,7 +114,7 @@ public class AdministratorReportController extends BaseController {
     }
 
     @RequestMapping(value = "report/{id}", method = RequestMethod.PATCH)
-    @JsonView(ReportView.RapportVisite.class)
+    @JsonView(ReportView.Report.class)
     public Report patchReport(@PathVariable("id") Long id, @RequestBody ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
         Report report = reportRepository.findOneByUserAndId(this.getUser(),id);
         if (report == null)

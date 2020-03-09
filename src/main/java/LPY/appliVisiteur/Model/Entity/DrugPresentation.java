@@ -12,19 +12,22 @@ public class DrugPresentation {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, DrugPresentationView.DrugPresentation.class})
+    @JsonView({ReportView.Report.class, DrugPresentationView.DrugPresentation.class})
     private long id;
 
     @JsonView(DrugPresentationView.DrugPresentation.class)
     private String note;
 
     @ManyToOne
-    @JsonView({ReportView.RapportVisite.class, DrugPresentationView.DrugPresentation.class})
+    @JsonView({ReportView.Report.class, DrugPresentationView.DrugPresentation.class})
     private Drug drug;
 
     @ManyToOne
     @JsonView(DrugPresentationView.DrugPresentation.class)
     private Report report;
+
+    @JsonView({DrugPresentationView.DrugPresentation.class, ReportView.Report.class})
+    private String label;
 
     public long getId() {
         return id;
@@ -59,6 +62,15 @@ public class DrugPresentation {
 
     public DrugPresentation setReport(Report report) {
         this.report = report;
+        return this;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public DrugPresentation setLabel(String label) {
+        this.label = label;
         return this;
     }
 }

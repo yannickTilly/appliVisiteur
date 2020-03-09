@@ -1,6 +1,5 @@
 package LPY.appliVisiteur.Model.Entity;
 
-import LPY.appliVisiteur.Model.PrimaryKey.WorkSchedulePrimaryKey;
 import LPY.appliVisiteur.Model.View.Visiteur.WorkedTimeView;
 import LPY.appliVisiteur.Model.View.Visiteur.ReportView;
 import LPY.appliVisiteur.Model.View.Visiteur.UserView;
@@ -16,7 +15,7 @@ public class WorkedTime {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, ReportView.RapportVisite.class})
+    @JsonView({ReportView.Report.class, ReportView.Report.class})
     private long id;
 
     @ManyToOne

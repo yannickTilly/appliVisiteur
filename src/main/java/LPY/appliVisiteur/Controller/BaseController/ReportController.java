@@ -89,7 +89,7 @@ public class ReportController extends BaseController {
         {
             throw new RessouceNotFoundExeption("pratitionner not found");
         }
-
+        report.setLabel(reportBody.getLabel());
         report.setUser(user);
         report.setRegion(user.getRegion());
         report.setDrugPresentations(drugPresentations);
@@ -100,7 +100,7 @@ public class ReportController extends BaseController {
         return report;
     }
 
-    public Report patchReport(Long id, ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+    public Report patchReport(Long id, ReportBody reportBody) throws UserNotFoundException, RessouceNotFoundExeption {
         Report report = reportRepository.findOneByUserAndId(this.getUser(),id);
         if (report == null)
         {
@@ -108,6 +108,10 @@ public class ReportController extends BaseController {
         }
         else
         {
+            if (report.getLabel()!= null)
+            {
+                report.setLabel(reportBody.getLabel());
+            }
             if (reportBody.getNote() != null)
             {
                 report.setDescription(reportBody.getNote());

@@ -14,14 +14,18 @@ public class Report {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     private long id;
 
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @JsonView({ReportView.Report.class})
+    @Column(name = "label", length = 150)
+    private String label;
+
+    @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "description", length = 100)
     private String description;
 
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "date")
     private LocalDate date;
 
@@ -30,15 +34,15 @@ public class Report {
     private User user;
 
     @OneToMany(mappedBy = "report")
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     private Collection<DrugPresentation> drugPresentations;
 
     @ManyToOne
-    @JsonView({ReportView.RapportVisite.class, ReportView.DelegueRapportVisite.class})
+    @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     private Pratitionner pratitionner;
 
     @ManyToOne
-    @JsonView({ReportView.RapportVisite.class})
+    @JsonView({ReportView.Report.class})
     private Region region;
 
 
@@ -106,6 +110,16 @@ public class Report {
 
     public Report setRegion(Region region) {
         this.region = region;
+        return this;
+    }
+
+
+    public String getLabel() {
+        return label;
+    }
+
+    public Report setLabel(String label) {
+        this.label = label;
         return this;
     }
 }

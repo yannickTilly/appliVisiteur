@@ -27,6 +27,8 @@ public class DelegateWorkedTimeController extends WorkedTimeController {
     @RequestMapping(value = "workedTime/{id}", method = RequestMethod.GET)
     @JsonView(WorkedTimeView.PeriodeTravaille.class)
     public WorkedTime getWorkedTime(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, AccessDeniedException {
+        WorkedTime workedTime = super.getWorkedTime(id);
+        if ( workedTime.getUser().getId() == this.getUser().getId()) return  super.getWorkedTime(id);
         return super.getWorkedTime(id);
     }
 

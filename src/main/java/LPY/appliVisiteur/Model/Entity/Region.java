@@ -15,16 +15,16 @@ public class Region {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.RapportVisite.class, ReportView.RapportVisite.class})
+    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.Report.class, ReportView.Report.class})
     private long id;
 
     @Column(name = "code", length = 10)
-    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.RapportVisite.class, ReportView.RapportVisite.class})
+    @JsonView({WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.Report.class, ReportView.Report.class})
 
     private String code;
 
     @Column(name = "name", length = 30)
-    @JsonView({ReportView.RapportVisite.class, WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.RapportVisite.class})
+    @JsonView({ReportView.Report.class, WorkedTimeView.PeriodeTravaille.class, UserView.User.class, RegionView.Region.class, ReportView.Report.class})
 
     private String name;
 
@@ -32,7 +32,7 @@ public class Region {
     private Collection<WorkedTime> workedTimes;
 
     @ManyToOne
-    @JsonView({UserView.User.class, ReportView.RapportVisite.class})
+    @JsonView({UserView.User.class, ReportView.Report.class})
     private Sector sector;
 
     @OneToMany(mappedBy = "region")

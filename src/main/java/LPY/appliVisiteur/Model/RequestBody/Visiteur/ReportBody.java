@@ -10,6 +10,16 @@ public class ReportBody {
     private String note;
     private int sampleNumber;
     private String date;
+    private String label;
+
+    public String getLabel(){
+         return label;
+    }
+
+    public ReportBody setLabel(String label) {
+        this.label = label;
+        return this;
+    }
 
     public String getDate() {
         return date;
@@ -61,5 +71,7 @@ public class ReportBody {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return LocalDate.parse(getDate(), formatter);
     }
+
+
 }
 

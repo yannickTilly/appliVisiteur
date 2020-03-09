@@ -13,7 +13,7 @@ public class Pratitionner {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.RapportVisite.class, PratitionnerView.Praticien.class})
+    @JsonView({ReportView.Report.class, PratitionnerView.Praticien.class})
     private long id;
 
     @OneToMany(mappedBy = "pratitionner")
@@ -26,7 +26,7 @@ public class Pratitionner {
     private Collection<Diploma> diplomas;
 
     @Column(name = "first_name", length = 50)
-    @JsonView({ReportView.RapportVisite.class, PratitionnerView.Praticien.class})
+    @JsonView({ReportView.Report.class, PratitionnerView.Praticien.class})
     private String firstName;
 
     public long getId() {
