@@ -8,6 +8,7 @@ import LPY.appliVisiteur.Model.View.Visiteur.PratitionnerView;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
-@RolesAllowed("ROLE_VISITOR")
+@Secured({"ROLE_VISITOR", "ROLE_DELEGATE"})
 public class VisitorPratitionnerController extends PratitionnerController {
     @Autowired
     private PraticionnerRepository praticionnerRepository;

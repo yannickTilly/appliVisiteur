@@ -17,7 +17,7 @@ public class Report {
     @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     private long id;
 
-    @JsonView({ReportView.Report.class})
+    @JsonView({ReportView.Report.class, ReportView.DelegueRapportVisite.class})
     @Column(name = "label", length = 150)
     private String label;
 

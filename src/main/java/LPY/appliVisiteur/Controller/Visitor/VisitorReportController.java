@@ -20,7 +20,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("visitor")
-@Secured("ROLE_VISITOR")
+@Secured({"ROLE_VISITOR", "ROLE_DELEGATE"})
 public class VisitorReportController extends ReportController {
     @Autowired
     private AdministratorReportController administratorReportController;

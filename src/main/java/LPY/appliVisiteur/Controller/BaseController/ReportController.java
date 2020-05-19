@@ -51,6 +51,10 @@ public class ReportController extends BaseController {
         }
         else
         {
+            for(DrugPresentation drugPresentation : report.getDrugPresentations())
+            {
+                drugPresentationRepository.delete(drugPresentation);
+            }
             reportRepository.delete(report);
             return this.getUser().getReports();
         }

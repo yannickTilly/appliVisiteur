@@ -14,15 +14,15 @@ public class Drug {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    @JsonView({ReportView.Report.class, DrugView.Medicament.class})
+    @JsonView({ReportView.Report.class, DrugView.Medicament.class, ReportView.DelegueRapportVisite.class})
     private long id;
 
     @Column(name = "name", length = 50)
-    @JsonView({ReportView.Report.class, DrugView.Medicament.class})
+    @JsonView({ReportView.Report.class, DrugView.Medicament.class, ReportView.DelegueRapportVisite.class})
     private String name;
 
     @Column(name = "description", length = 100)
-    @JsonView({DrugView.Medicament.class})
+    @JsonView({DrugView.Medicament.class, ReportView.DelegueRapportVisite.class})
     private String description;
 
     @OneToMany(mappedBy = "drug")

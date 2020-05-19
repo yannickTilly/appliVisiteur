@@ -29,10 +29,10 @@ public class DelegateReportController extends VisitorReportController {
     private UserRepository userRepository;
 
     @Override
-    @RequestMapping(value = "report/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "report/{reportId}", method = RequestMethod.GET)
     @JsonView(ReportView.DelegueRapportVisite.class)
-    public Report getReport(@PathVariable("id") Long id) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
-        Report report = reportRepository.findOneByIdAndRegion(id, this.getUser().getRegion());
+    public Report getReport(@PathVariable("reportId") long reportId) throws UserNotFoundException, RessouceNotFoundExeption, JsonProcessingException {
+        Report report = reportRepository.findOneByIdAndRegion(reportId, this.getUser().getRegion());
 
         if (report == null) {
             throw new RessouceNotFoundExeption("No results found");
